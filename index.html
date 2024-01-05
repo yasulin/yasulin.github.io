@@ -26,13 +26,43 @@
 <script>
     // Sample diary entries for each day with corresponding dates
     const diaryEntries = [
-        { date: "2024-01-01", content: "ちょうど年を跨ぐころ、僕は半蔵門線に揺られていた。同僚のイタリア人が催した大晦日パーティーからの帰宅途中だった。家に着いて九品仏に向かった。自分のこと、衛星の打ち上げ、作曲、母のこと、個展、家族のこと、健康、安全、一通り願っていたら、隣の参拝者の二巡分の時間を使っていた。おみくじは中吉、以下の三つは心に刻んでおこう。1. あたたかき愛をなみなみと注ぐ家族に感謝しよう。本物の優しさの中には厳しさもある。愛に満ち足りた人生を歩むには、上辺の言葉に惑わされず心を見る力をつけることだ。2. 叶うと信じることで願いが現実のものになる。3. 旅先で思わぬ素敵な出会いあり。" },
-        { date: "2024-01-02", content: "Yesterday's diary entry..." },
-        { date: "2024-01-03", content: "Two days ago's diary entry..." },
+        { date: "01/01/2024", content: "ちょうど年を跨ぐころ、僕は半蔵門線に揺られていた。イタリア人の同僚が催した大晦日パーティーからの帰宅途中だった。家に着いて九品仏に向かった。自分のこと、衛星打ち上げ、作曲、母のこと、個展、家族のこと、健康、安全… 一通り願っていたら、隣の参拝者の二巡分の時間を使っていた。おみくじは中吉、これら三つは心に刻んでおこう。1. あたたかき愛をなみなみと注ぐ家族に感謝しよう。本物の優しさの中には厳しさもある。愛に満ち足りた人生を歩むには、上辺の言葉に惑わされず心を見る力をつけること。2. 叶うと信じることで願いが現実のものになる。3. 旅先で思わぬ素敵な出会いあり。2024年、どうぞよろしく。" },
+        { date: "01/02/2024", content: "The second sunrise to the world was the first sunrise to us. I went hiking on Mt.Sunrise with my confidants. The moment Sun showed itself from the clouds was exceptionally beautiful and satisfying. I wish I had fully relied myself on its nature but my right hand was holding onto the phone tight, trying to capture the new year's moment. What has this world become, or rather, what have I become? Do I find values in pictorial evidences? But happiness intesifies when shared amongst important ones. Starting to have doubts... 記録に残したのは、他者からの羨望という優越感に浸りたいためか、大切な人と幸せな経験を共有するためか。どっちもな気がする。醜い一面と素直な一面が共存している、それが僕という人間だ。"},
+        { date: "01/03/2024", content: "Following the plane fire accident, the airport was a bit crowded but luckily my plane flew as planned. Or unluckily... I knew I was sick when I boarded with my nose running endlessly. I landed. Met my parents, grandparents, cousins, had lunch and got home. I told my mum: Maybe I shouldn't have come back home bringing all the sickness. She replied: Thank you for coming back home, now I can take care of you by your side. Love your family, treasure them, embrace them, forgive them, appreciate them, it's ineffable how important they are to you. Today, you are standing on top of their sacrifices called 'Love'." },
+        { date: "01/04/2024", content: "Tested. Covid. Positive. Dead. For One Day. Peace Out." },
+        { date: "01/05/2024", content: "empty entry..." },
+        { date: "01/06/2024", content: "empty entry..." },
+        { date: "01/07/2024", content: "empty entry..." },
+        { date: "01/08/2024", content: "empty entry..." },
+        { date: "01/09/2024", content: "empty entry..." },
+        { date: "01/10/2024", content: "empty entry..." },
+        { date: "01/11/2024", content: "empty entry..." },
+        { date: "01/12/2024", content: "empty entry..." },
+        { date: "01/13/2024", content: "empty entry..." },
+        { date: "01/14/2024", content: "empty entry..." },
+        { date: "01/15/2024", content: "empty entry..." },
+        { date: "01/16/2024", content: "empty entry..." },
+        { date: "01/17/2024", content: "empty entry..." },
+        { date: "01/18/2024", content: "empty entry..." },
+        { date: "01/19/2024", content: "empty entry..." },
+        { date: "01/20/2024", content: "empty entry..." },
+        { date: "01/21/2024", content: "empty entry..." },
+        { date: "01/22/2024", content: "empty entry..." },
+        { date: "01/23/2024", content: "empty entry..." },
+        { date: "01/24/2024", content: "empty entry..." },
+        { date: "01/25/2024", content: "empty entry..." },
+        { date: "01/26/2024", content: "empty entry..." },
+        { date: "01/27/2024", content: "empty entry..." },
+        { date: "01/28/2024", content: "empty entry..." },
         // Add more entries as needed
     ];
 
-    let currentDayIndex = 0;
+    const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+    // Find today's index in the diaryEntries array
+    const todayIndex = diaryEntries.findIndex(entry => entry.date === today);
+    let currentDayIndex = todayIndex !== -1 ? todayIndex : 0;
+
     const dateSectionElement = document.getElementById('dateSection');
     const diaryContentElement = document.getElementById('diaryContent');
 
