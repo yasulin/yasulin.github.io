@@ -1,25 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Yasu, the Martian</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-  <script type="text/javascript" src="script/index.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflective Pieces</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
-	<header>
-			<h1>Hello Earth. I'm Yasu, the Martian.</h1>
-	</header>
 
-  <div class='main'>
-    <img src="images/profile.jpg" width='500px' alt="THIS IS ME" title="THIS IS ME"><br>
-    <p id="date"></p>
-    #DailySelfieChallenge
-  </div>
+<div class="container">
+    <div class="date-section" id="dateSection">
+        <!-- Date section will be dynamically updated here -->
+    </div>
+    <p>----------</p>
+    <div class="diary-content" id="diaryContent">
+        <!-- Diary content will be dynamically updated here -->
+    </div>
 
-	<footer>
-		<p>Yasu, the Martian &copy; 2021</p>
-	</footer>
+    <div class="navigation-buttons">
+        <button id="prevDayBtn" onclick="changeDay(-1)">←</button>
+        <button id="nextDayBtn" onclick="changeDay(1)">→</button>
+    </div>
+</div>
+
+<script>
+    // Sample diary entries for each day with corresponding dates
+    const diaryEntries = [
+        { date: "2024-01-01", content: "ちょうど年を跨ぐころ、僕は半蔵門線に揺られていた。同僚のイタリア人が催した大晦日パーティーからの帰宅途中だった。家に着いて九品仏に向かった。自分のこと、衛星の打ち上げ、作曲、母のこと、個展、家族のこと、健康、安全、一通り願っていたら、隣の参拝者の二巡分の時間を使っていた。おみくじは中吉、以下の三つは心に刻んでおこう。1. あたたかき愛をなみなみと注ぐ家族に感謝しよう。本物の優しさの中には厳しさもある。愛に満ち足りた人生を歩むには、上辺の言葉に惑わされず心を見る力をつけることだ。2. 叶うと信じることで願いが現実のものになる。3. 旅先で思わぬ素敵な出会いあり。" },
+        { date: "2024-01-02", content: "Yesterday's diary entry..." },
+        { date: "2024-01-03", content: "Two days ago's diary entry..." },
+        // Add more entries as needed
+    ];
+
+    let currentDayIndex = 0;
+    const dateSectionElement = document.getElementById('dateSection');
+    const diaryContentElement = document.getElementById('diaryContent');
+
+    // Function to update the date and diary entry based on the day index
+    function updateDiaryContent() {
+        const currentDate = diaryEntries[currentDayIndex].date;
+        const formattedDate = new Date(currentDate).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+        dateSectionElement.textContent = `${formattedDate}`;
+        diaryContentElement.textContent = diaryEntries[currentDayIndex].content;
+    }
+
+    // Function to change the day (forward or backward)
+    function changeDay(delta) {
+        currentDayIndex += delta;
+
+        // Ensure the index stays within the bounds of the diaryEntries array
+        if (currentDayIndex < 0) {
+            currentDayIndex = 0;
+        } else if (currentDayIndex >= diaryEntries.length) {
+            currentDayIndex = diaryEntries.length - 1;
+        }
+        updateDiaryContent();
+    }
+
+    // Initial update of diary content
+    updateDiaryContent();
+</script>
 
 </body>
 </html>
