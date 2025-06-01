@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Silk Ride Map</title>
+  <title>Movie</title>
   <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
 
-  <!-- Roboto font -->
+  <!-- Load Roboto from Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
     rel="stylesheet"
@@ -29,8 +29,13 @@
       border-radius: 4px;
     }
     /* ────────────────────────────────────────────────────────────────────────── */
-    /* Base page styling */
-    html, body {
+    /*
+      White background, black text, Roboto font.
+      Center the embedded player.
+      Make iframe occupy 70% of viewport.
+    */
+    html,
+    body {
       margin: 0;
       padding: 0;
       background-color: #ffffff;
@@ -48,48 +53,29 @@
       font-size: 1.75rem;
     }
 
-    /*
-      Card container: white background (same as page),
-      but with a light drop shadow, rounded corners, and padding.
-      Also centering it with max-width.
-    */
-    .card {
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      padding: 16px;
-      width: 80vw;
-      max-width: 900px;
-      margin-bottom: 2rem;
-    }
-
-    /*
-      Inside the card, the map-container is still responsive.
-      We’ll give it fixed height (70vh) but allow it to fill the card’s width.
-    */
-    .map-container {
+    .video-container {
       position: relative;
-      width: 100%;
+      width: 70vw;
       height: 70vh;
-      border-radius: 6px; /* slightly smaller radius than card */
-      overflow: hidden;   /* clip the iframe corners */
+      margin-bottom: 2rem;
+      border-radius: 6px;
+      overflow: hidden;
     }
 
-    .map-container iframe {
+    @media (min-width: 800px) {
+      /* On very wide screens, cap height at 60vh */
+      .video-container {
+        height: 60vh;
+      }
+    }
+
+    .video-container iframe {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       border: none;
-    }
-
-    /* Optional caption or instructions below the map */
-    .caption {
-      font-size: 0.9rem;
-      color: #555555;
-      margin-top: 8px;
-      text-align: center;
     }
   </style>
 </head>
@@ -100,21 +86,31 @@
     <img src="../../images/home-icon.svg" alt="Home" width="24" height="24" />
   </a>
   <!-- ────────────────────────────────────────────────────────────────────────── -->
-  <h1>Silk Road Route</h1>
+  <!-- Page title -->
+  <h1>Birthday Videos</h1>
+  <div class="video-container">
+    <!--
+      1) Replace “UUxxxxxxxxxxxxxxxxxxxxxx” below with your actual Uploads Playlist ID.
+      2) This “videoseries” embed will play all uploads in sequence.
+    -->
+    <iframe
+      src="https://www.youtube.com/embed/videoseries?list=PLjH-BBNqp9eH97SeFbrIEGmkoGKdthz9J"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
 
-  <div class="card">
-    <div class="map-container">
-      <iframe
-        src="https://www.google.com/maps/d/u/0/embed?mid=1Xsh9BYem1UuXFFwWAjcufyw0tU8hyEs&ehbc=2E312F"
-        allowfullscreen
-      ></iframe>
-    </div>
-    <div class="caption"></div>
+  <h1>Alumni Giving Campaign 2024</h1>
+  <div class="video-container">
+    <!--
+      1) Replace “UUxxxxxxxxxxxxxxxxxxxxxx” below with your actual Uploads Playlist ID.
+      2) This “videoseries” embed will play all uploads in sequence.
+    -->
+    <iframe
+      src="https://www.youtube.com/embed/videoseries?list=PLjH-BBNqp9eFAEwBoBDmsF7gXtBOrlH21"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
   </div>
 </body>
 </html>
-
-
-
-
-<!-- src="https://www.google.com/maps/d/u/0/embed?mid=1Xsh9BYem1UuXFFwWAjcufyw0tU8hyEs&ehbc=2E312F" -->

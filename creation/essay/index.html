@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects</title>
-  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  <title>Essay</title>
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
 
   <!-- Load Roboto from Google Fonts -->
   <link
@@ -30,17 +30,15 @@
     }
     /* ────────────────────────────────────────────────────────────────────────── */
     /*
-      Basic page styling:
-      - White background, black text
-      - Roboto font
-      - Centered content
+      White background, black text, Roboto font
+      Center everything vertically/horizontally
     */
     html,
     body {
       margin: 0;
       padding: 0;
       background-color: #ffffff;
-      color: #333333;
+      color: #000000;
       font-family: 'Roboto', sans-serif;
       height: 100vh;
       display: flex;
@@ -51,12 +49,6 @@
 
     h1 {
       font-size: 2rem;
-    }
-
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem; /* space between buttons */
     }
 
     button {
@@ -89,17 +81,23 @@
 <body>
   <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
   <a href="/" class="home-btn" title="Home">
-    <img src="../images/home-icon.svg" alt="Home" width="24" height="24" />
+    <img src="../../images/home-icon.svg" alt="Home" width="24" height="24" />
   </a>
   <!-- ────────────────────────────────────────────────────────────────────────── -->
-  <!-- Main heading -->
-  <h1>Projects</h1>
+
+  <!-- Page title -->
+  <h1>Essay</h1>
   <hr class="horizontal-line">
-  <div class="button-container">
-    <!-- Each button navigates to its subdirectory -->
-    <button onclick="location.href='enfty/'">enfty</button>
-    <button onclick="location.href='chi-no-kakurega/'">知の隠れ家</button>
-    <button onclick="location.href='silk-ride/'">Silk Road Ride</button>
-  </div>
+  <!-- Button linking to enfty.com -->
+  <a href="https://note.com/yasu_lin_tsumura/n/n41e4536603c8" target="_blank" rel="noopener noreferrer">
+    <button>
+      北京紀行
+    </button>
+  </a>
+  <a href="https://note.com/yasu_lin_tsumura/m/m3010b1f087f5" target="_blank" rel="noopener noreferrer">
+    <button>
+      VOYAGE
+    </button>
+  </a>
 </body>
 </html>
