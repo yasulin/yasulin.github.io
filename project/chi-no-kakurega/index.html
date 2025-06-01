@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi-no-Kakurega</title>
+
+  <!-- Load Roboto from Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ─── Home button styling ───────────────────────────────────────────────── */
+    .home-btn {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: #000000;
+      z-index: 1000;
+    }
+
+    .home-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
+
+    /*
+      White background, black text, Roboto font.
+      Center the heading, space above videos.
+    */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+
+    /*
+      Each .video-block is an enlarged 16:9 iframe container:
+      - width: 90vw (max 800px)
+      - padding-bottom: 56.25% for 16:9 aspect ratio
+      - height: 0 (to let padding-bottom drive the ratio)
+      - margin-bottom: 2rem to separate videos
+      - rounded corners and subtle shadow for a “card” effect
+    */
+    .video-block {
+      position: relative;
+      width: 90vw;
+      max-width: 800px;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      margin-bottom: 2rem;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .video-block iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /*
+      Notice: If you have more than 50 videos, the script below will fetch
+      all pages of the playlist via nextPageToken.
+    */
+  </style>
+</head>
+
+<body>
+  <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
+  <a href="/" class="home-btn" title="Home">
+    <img src="../../images/home-icon.svg" alt="Home" width="24" height="24" />
+  </a>
+  <!-- ────────────────────────────────────────────────────────────────────────── -->
+
+  <!-- Page heading -->
+  <h1>知の隠れ家</h1>
+
+  <!-- Container where dynamically created .video-block elements will be appended -->
+  <div id="videos"></div>
+
+  <script>
+    // ────────────────────────────────────────────────────────────────────────────
+    // 1) REPLACE the placeholders below with your actual values:
+    //
+    //    a) YOUR_API_KEY:
+    //       • Go to Google Cloud Console → Enable YouTube Data API v3 → create an API key.
+    //       • Copy that API key into the string below.
+    //
+    //    b) PLAYLIST_ID:
+    //       • Open https://www.youtube.com/@chinokakurega/videos
+    //       • Click any video → Click “Chi-no-Kakurega” channel name → Click “Playlists”
+    //       • Find “Uploads” playlist, copy the ID after “?list=” (starts with UU…).
+    //
+    // Replace 'YOUR_API_KEY' and 'UUxxxxxxxxxxxxxxxxxxxxxx' with the real values.
+    // ────────────────────────────────────────────────────────────────────────────
+
+    const API_KEY = 'AIzaSyDifgvu8ZvtzU7TZfMsJm422OGDs0yRylg';
+    const PLAYLIST_ID = 'PL4zAsYlJtAO_PclLLfhab4IBhskoJitUM';
+
+    // Base URL for retrieving playlist items
+    const BASE_URL = 'https://www.googleapis.com/youtube/v3/playlistItems';
+
+    // Reference to the container <div id="videos">
+    const videosContainer = document.getElementById('videos');
+
+    /**
+     * Fetches one page of playlist items and appends each video to the DOM.
+     * If the response contains a nextPageToken, calls itself recursively to fetch all pages.
+     *
+     * @param {string} [pageToken] – (Optional) token for pagination.
+     */
+    function fetchPlaylistPage(pageToken = '') {
+      // Build the query parameters
+      const params = new URLSearchParams({
+        part: 'snippet',
+        maxResults: '50',               // maximum allowed per request
+        playlistId: PLAYLIST_ID,
+        key: API_KEY
+      });
+      if (pageToken) {
+        params.append('pageToken', pageToken);
+      }
+
+      // Perform the fetch
+      fetch(`${BASE_URL}?${params.toString()}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`YouTube API error: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          // For each item in this page, create a video-block
+          data.items.forEach(item => {
+            const videoId = item.snippet.resourceId.videoId;
+            createVideoBlock(videoId);
+          });
+
+          // If there’s another page, fetch it as well
+          if (data.nextPageToken) {
+            fetchPlaylistPage(data.nextPageToken);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching playlist:', error);
+          // Optionally, show a user-friendly message here
+        });
+    }
+
+    /**
+     * Creates a `.video-block` div containing an <iframe> for the given videoId,
+     * and appends it to #videos container.
+     *
+     * @param {string} videoId – YouTube video ID (11-character code).
+     */
+    function createVideoBlock(videoId) {
+      // Create wrapper div
+      const wrapper = document.createElement('div');
+      wrapper.className = 'video-block';
+
+      // Create the iframe
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}`;
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.allowFullscreen = true;
+
+      // Append iframe into wrapper, then wrapper into container
+      wrapper.appendChild(iframe);
+      videosContainer.appendChild(wrapper);
+    }
+
+    // Once the DOM is fully loaded, start fetching playlist pages
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchPlaylistPage();
+    });
+  </script>
+</body>
+</html>

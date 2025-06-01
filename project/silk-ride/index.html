@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silk Ride Map</title>
+
+  <!-- Roboto font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ─── Home button styling ───────────────────────────────────────────────── */
+    .home-btn {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: #000000;
+      z-index: 1000;
+    }
+
+    .home-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
+    /* Base page styling */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+
+    /*
+      Card container: white background (same as page),
+      but with a light drop shadow, rounded corners, and padding.
+      Also centering it with max-width.
+    */
+    .card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      width: 80vw;
+      max-width: 900px;
+      margin-bottom: 2rem;
+    }
+
+    /*
+      Inside the card, the map-container is still responsive.
+      We’ll give it fixed height (70vh) but allow it to fill the card’s width.
+    */
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      border-radius: 6px; /* slightly smaller radius than card */
+      overflow: hidden;   /* clip the iframe corners */
+    }
+
+    .map-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Optional caption or instructions below the map */
+    .caption {
+      font-size: 0.9rem;
+      color: #555555;
+      margin-top: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
+  <a href="/" class="home-btn" title="Home">
+    <img src="../../images/home-icon.svg" alt="Home" width="24" height="24" />
+  </a>
+  <!-- ────────────────────────────────────────────────────────────────────────── -->
+  <h1>Silk Road Route</h1>
+
+  <div class="card">
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/d/u/0/embed?mid=1Xsh9BYem1UuXFFwWAjcufyw0tU8hyEs&ehbc=2E312F"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="caption"></div>
+  </div>
+</body>
+</html>
+
+
+
+
+<!-- src="https://www.google.com/maps/d/u/0/embed?mid=1Xsh9BYem1UuXFFwWAjcufyw0tU8hyEs&ehbc=2E312F" -->

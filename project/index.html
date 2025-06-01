@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+
+  <!-- Load Roboto from Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ─── Home button styling ───────────────────────────────────────────────── */
+    .home-btn {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: #000000;
+      z-index: 1000;
+    }
+
+    .home-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
+    /*
+      Basic page styling:
+      - White background, black text
+      - Roboto font
+      - Centered content
+    */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #333333;
+      font-family: 'Roboto', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; /* space between buttons */
+    }
+
+    button {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #333333;
+      background-color: #ffffff;
+      color: #333333;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #f0f0f0;
+    }
+
+    .horizontal-line {
+      border: none;            /* Remove default border */
+      height: 2px;             /* Thickness */
+      background-color: #666;  /* Color */
+      width: 85%;              /* Length (80% of container) */
+      margin: 1.5rem auto;     /* Center horizontally with some vertical spacing */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
+  <a href="/" class="home-btn" title="Home">
+    <img src="../images/home-icon.svg" alt="Home" width="24" height="24" />
+  </a>
+  <!-- ────────────────────────────────────────────────────────────────────────── -->
+  <!-- Main heading -->
+  <h1>Projects</h1>
+  <hr class="horizontal-line">
+  <div class="button-container">
+    <!-- Each button navigates to its subdirectory -->
+    <button onclick="location.href='enfty/'">enfty</button>
+    <button onclick="location.href='chi-no-kakurega/'">知の隠れ家</button>
+    <button onclick="location.href='silk-ride/'">Silk Road Ride</button>
+  </div>
+</body>
+</html>

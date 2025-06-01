@@ -1,173 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reflective Pieces</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Load Roboto from Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /*
+        Simple styling for the main page:
+        - White background, black text
+        - Use Roboto everywhere
+        - Center everything vertically/horizontally
+      */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        color: #000000;
+        font-family: 'Roboto', sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* space between buttons */
+      }
+
+      button {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #333333;
+      background-color: #ffffff;
+      color: #333333;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #f0f0f0;
+    }
+
+      .horizontal-line {
+      border: none;            /* Remove default border */
+      height: 2px;             /* Thickness */
+      background-color: #666;  /* Color */
+      width: 85%;              /* Length (80% of container) */
+      margin: 1.5rem auto;     /* Center horizontally with some vertical spacing */
+    }
+    </style>
 </head>
+
 <body>
-
-<div class="container">
-    <div class="date-section" id="dateSection">
-        <!-- Date section will be dynamically updated here -->
+    <!--
+      Main heading for the site
+    -->
+    <h1>lin</h1>
+    <hr class="horizontal-line">
+    <div class="button-container">
+      <!--
+        Each button navigates to its respective folder.
+        Browsers will look for story/index.html, etc.
+      -->
+      <button onclick="location.href='story/'">Story</button>
+      <!-- <button onclick="location.href='education/'">Education</button>
+      <button onclick="location.href='work/'">Work</button> -->
+      <button onclick="location.href='project/'">Projects</button>
     </div>
-    <p>----------</p>
-    <div class="diary-content" id="diaryContent">
-        <!-- Diary content will be dynamically updated here -->
-    </div>
-
-    <div class="navigation-buttons">
-        <button id="prevDayBtn" onclick="changeDay(-1)">←</button>
-        <button id="nextDayBtn" onclick="changeDay(1)">→</button>
-    </div>
-</div>
-
-<script>
-    // Diary entries for each day
-    const diaryEntries = [
-        { date: "01/01/2024", content: "ちょうど年を跨ぐころ、僕は半蔵門線に揺られていた。イタリア人の同僚が催した大晦日パーティーからの帰宅途中だった。家に着いて九品仏に向かった。自分のこと、衛星打ち上げ、作曲、母のこと、個展、家族のこと、健康、安全… 一通り願っていたら、隣の参拝者の二巡分の時間を使っていた。おみくじは中吉、これら三つは心に刻んでおこう。1. あたたかき愛をなみなみと注ぐ家族に感謝しよう。本物の優しさの中には厳しさもある。愛に満ち足りた人生を歩むには、上辺の言葉に惑わされず心を見る力をつけること。2. 叶うと信じることで願いが現実のものになる。3. 旅先で思わぬ素敵な出会いあり。2024年、どうぞよろしく。" },
-        { date: "01/02/2024", content: "The second sunrise to the world was the first sunrise to us. I went hiking on Mt.Sunrise with my confidants. The moment Sun showed itself from the clouds was exceptionally beautiful and satisfying. I wish I had fully relied myself on its nature but my right hand was holding onto the phone tight, trying to capture the new year's moment. What has this world become, or rather, what have I become? Do I find values in pictorial evidences? But happiness intesifies when shared amongst important ones. Starting to have doubts... 記録に残したのは、他者からの羨望という優越感に浸りたいためか、大切な人と幸せな経験を共有するためか。どっちもな気がする。醜い一面と素直な一面が共存している、それが僕という人間だ。" },
-        { date: "01/03/2024", content: "Following the plane fire accident, the airport was a bit crowded but luckily my plane flew as planned. Or unluckily... I knew I was sick when I boarded with my nose running endlessly. I landed. Met my parents, grandparents, cousins, had lunch and got home. I told my mum: 我感冒不應該回來的. She replied: 謝謝你回來,  這樣我才可以在你身邊安心的照顧你. Love your family, treasure them, embrace them, forgive them, appreciate them, it's ineffable how important they are to you. Today, you are standing on top of their sacrifices called 'Love'." },
-        { date: "01/04/2024", content: "Tested. Covid. Positive. Dead. Whole Day. Peace Out." },
-        { date: "01/05/2024", content: "A bit late but I started this diary thing today after Haku's message on LINE reminded me. I spent good amount of time writing the web structure and entries for the past few days I missed, but it wasn't a pain. They say having a good environment is really important to do any sort of tasks. I guess it's true, having this little space on the internet set up for myself is kind of fun and exciting. If you found me, these are all yours to read, enjoy!!" },
-        { date: "01/06/2024", content: "金正恩から見舞いの電報があった。「日本が不幸にも新年の初めから地震による多くの人命被害と物質的な損失を被ったという知らせに接した。遺族と被害者に深い同情と哀悼の意を表する。」演技なのか、貸しなのか、保険なのか、形なのか。誰かへの訴えなのか。誰への訴えなのだ。真相はわからない。だから勘繰るのはやめにしよう。真摯に受け止めよう。謝意を示そう。疑ってばかりでは何も変わらない。確かなことは一つ、この震災を受けて何かを感じたということ。その何かが前に進むきっかけなのかもしれない。" },
-        { date: "01/07/2024", content: "Declined the ISAK parents dinner invitation with a bit of leftover throat-ache. In the mean time, I thought I could work on the idea contest for ASTROSCALE but slacked off... Ended up purchasing a lifetime license for a hard drive data recovery software to fix all the damaged files in my most important external hard drive. I realised how much I value memories in the form of digital data and felt a monumental fear losing them. Am I afraid of forgetting everything when I become older? I don't really know. But now, I just hope all the data will be recovered. Nothing to be ashamed of in holding on to the beautiful past." },
-        { date: "01/08/2024", content: "Recovery workout session felt so good. Haven't really used my muscles or sweated in a week so it really was refreshing to be able to pump and run again! Anyway, I've been giving my thoughts around the space idea contest held by my company for the whole evening but nothing has sparked yet... Space x AI, Sports, Art, Education. They all sound interesting but can't think of aha examples. ChatGPT's helpful for speculating the worldwide issues in 2050 but they all sound banal. I tend to pursue originality and different angles in these type of idea contests. This I think comes from the background that I was always the outlier in the environment and the influences from my really really cool special parents. 出る杭は打たれるっていうけど、僕は打たれなかった杭、受け入れられた杭。So that just boosted my confidence in being special. Aight, I can talk forever about this but it's past midnight already, time is limited, back to the idea contest, I'll just go and explore: Collection and Transfer Methods of Solar Energy in Space!" },
-        { date: "01/09/2024", content: "So at the end of the day, I couldn't AND didn't submit my idea. I'm partially disappointed in myself, partially justifying myself. I had come up with ideas but I definitely did not leave enough time for myself to do the research. The ideas I thought were cool and new were found with just a quick look up that they've already been explored since the late 1900s or something, so that didn't help at all in pressing the submit button. With 15 mins left, I tried to come up with wild ideas but I definitely wanted to spend more time, warm it up and polish it up. I was scared of submitting some half-ass idea just for the sake of submission, just because I ran out of time. No more excuses, I just gave up (angel emoji). This is similar to a situation where you had a question in mind, but thought it was a stupid question or couldn't form it well in mind so just kept the question unasked. I do this quite often actually. Well, I'm definitely missing opportunities there but, in a sense, that could be seen as a silence of future investment. Alright, I'm rambling again, I'll shut my mouth for the day. P.S. RitsuUji x TJS gang was a fun group to hang <3" },
-        { date: "01/10/2024", content: "Highlight of the day was the small reunion we had in Yokohama and here are the three quotes from Ata 2024: 1. Is there military service in Afganistan? No we leave that to the Taliban. 2. I was writing my EE on the Taliban, had printed many pictures of them and had it in my suitcase. I got caught in the customs and they saw the pictures. Officers were saying 大丈夫ですよ but I knew they were freaking out inside. I was released from that situation then but later, I heard the Narita airport called Mr.Jemison, the head of the school, for confirmation... 3. Nippon Foundation raises money from boat racing. Man, I love his dark humour." },
-        { date: "01/11/2024", content: "The launch got postponed again... I knew the space industry will hardly ever go as planned but I'm quite sick of the postponement news already. The ADRAS-J count down poster has become a count up poster I swear.. ahaha... Well, meanwhile other projects have really kicked off and sinked in my schedule so I can see my self working extra hours again soon.. ahaha... Well, the new simulator development and state of the art algorithm implementations are exciting so I will look forward to those!" },
-        { date: "01/12/2024", content: "中国の平和に対する考え方「中国は平和的発展を堅持するが、発展は平和よりも尊い。中国は平和的台頭を堅持するが、台頭は平和よりも尊い。中国は平和的解決を堅持するが、主権は平和よりも尊い。中国は平和的統一を堅持するが、統一は平和よりも尊い。我々は平和を犠牲にすることで統一を死守しなければならない。中国は平和的外交を堅持するが、中国外交の原則は平和よりも尊い。平和には性質的区分というものがある。平等、公正、正義の原則に基づいた平和もあれば、妥協、譲歩、屈服、売国、投降によって得られる平和もある。挑発者を前にして、闘争しなければ平和は生まれる。圧迫者を前にして、抗争しなければ平和は生まれる。侵略者を前にして、抵抗しなければ平和は生まれる。つまり、すべての平和が栄光あるものではないということだ。原則を失った平和は、屈辱でしかないのだ。」イスラエルの論理「誰かが殺しに来たら立ち向かいこちらが先に殺せ。国家がなければ生き残れない。自分たちは常に存亡の危機にある。戦わなければ生き残れない。世界を敵に回してでも戦う。」決してこれを理由に武力行使に賛同するわけではないが、他国の視点を知ることは非常に重要だと思う。背景は何か、モチベーションは何か、夢は何か。そこを理解することで、解決の筋道が立つのだと思う。" },
-        { date: "01/13/2024", content: "中学の同級生が、白金に4階建ての一軒家を買いました。今日行きました。エレベーターありました。どこからツッコめばいいのかわからなかったです。もう婚約して月末に籍を入れるそうです。早いですね。いろんな生き方があるんですね。中学の頃は二人ともガキだったのに、もういい歳です。彼は三菱電気なので将来宇宙分野で一緒にコラボしたいですわ。" },
-        { date: "01/14/2024", content: "We have this wholesome chat among the beefcakes from the class of 2017 at ISAK, and everytime someone sends his gym pic, we just encourage and hype each other to death. This one came from Wes and I thought it was beautifully written so I might as well just share it here haha. 'My boi’s ass so perky that it looks like mount fuji got cloned side by side. His shoulders so defined, got me questioning my straightness. The V taper got me wondering bout that saber he be hiding under. Sex god forreal cant nobody resist him.' Honestly, he's one of the most important friends to me, and I wish he could come to the summer school this year so we could hang about, catch up and fool around like the old days." },
-        { date: "01/15/2024", content: "Edited two videos for the ISAK Alumni Giving Campaign. This is the unpaid work I signed up for. But no regrets. It's quite fun to reconnect with people and getting attention on my creation :) If you wanna have a watch, here you go! -> https://youtube.com/playlist?list=PLjH-BBNqp9eFAEwBoBDmsF7gXtBOrlH21&si=oKQrD4Y68xJklydB " },
-        { date: "01/16/2024", content: "Sometimes I just think out of the blue: 'Did I get worse at singing? Would I never be able to sing like I used to?' there's a bit of fear in it and today that happened again when I was singing in the shower. I don't know if there's a name to this psychological behaviour, if it is even a psychological behaviour. But most of the time, the cause is like a sickness or something that undermined my throat temporarily. This time it was covid, and I hope I can get back to normal singing again soon! " },
-        { date: "01/17/2024", content: "Talked to Saki about ISAK summer school 2024. I'm invited as a faculty member and I can design any course I want to teach through 3 workshops, she said. Man, I'm excited for this and I will have to take nearly 3 weeks off from Astroscale but I think it's worth it and the environment change will definitely feel fresh and provide me growth as well. For now I'm thinking one workshop where we think about 'What if the Kessler Syndrome occured and worldwide internet died tomorrow?', one for building water bottle rockets, and the final one for exploring who we are and the unknowns, finding the meaning of finding the meaning of life." },
-        { date: "01/18/2024", content: "Had dinner with Hiro, one of my colleagues at Astroscale and I was telling him it's getting busier at work, I listed what I was working on at the moment and I think it got up to 10 tasks... I was surprised myself too. Oh well, responsibility comes with experience I guess and I should be happy about it!" },
-        { date: "01/19/2024", content: "言葉とかアイデアみたいに中身がなくて表層的で簡単に見えることが、実は日本人にとって1番難しい。日本人が今まで活躍してきた領域をみると、モノを作って売るとか、スポーツで誰の目にも明らかな成績で勝つ、みたいな言葉が介在しないハードな世界でだけ戦うことができたと思う。逆にビジネスの領域では、言葉やアイデアによって作られるブランドビジネスやラグジュアリービジネスにおいては日本の存在感はゼロ。ソフトウェアや情報、メディアのレイヤーでも厳しい。1番重要のはイデオロギーや価値観設計のところで、明治以降、価値を測る尺度を海外から輸入して、その尺度で戦うということを強いられてきて、気づいたら強いられているということも忘れてしまって、それが当然の営みであるかのように、自分たちを自己洗脳してしまっている。それは今のSDGsなどを見れば明らかで、引いては企業の時価総額や国のGDPなど、全部そう。特にこれからの高齢化と人口減少ステージになってくると、経済的な絶対力で物事の尺度を図るのは、どんどん日本にとって厳しくなる。一国のGDPや企業の時価総額の合計で競争するのが厳しくなる現実がある。だとすると、自分たちが戦える方向に、いかにルールを組み替えるかが大事になってくると思う。これは日本の「弱さ」というよりは、ただ「意識していない」ということだと考える。日本は良くも悪しくも同じような人たちで作られた社会である。大体多くの人が日本語のネイティブで、同じような見た目で、大体同じ文化を共有している。その阿吽の呼吸、言わなくても伝わるという性質が、いい方向で働くと、チームプレイで、まめにお互いを監視しあって勤勉に働くとか、治安がいいとか、街が綺麗だとか、になる。ただ悪い方向にいくと、自分たちが何をしようとしているのか、どういう目的のもと、どういう制約のもと動いているのかということを説明したり、明示化したり、ぶつけ合ったりするということが苦手になってしまう。それをする必要性ないから。必要ないと大体退化していく。それを繰り返してきた結果が今だと思う。逆にそれを意識さえすれば、日本ほど変な国はないから、自分たちが暗黙に作り出してしまっている価値観や世界観があるはずだから、いかにそれを言葉にしていくか、壊していくか、再建していくか。今後、コンテンツ産業が重要になる中で、一体自分たちが何をやろうとしているのか、どのような世界観を作っているのかを説明できるリーダーが必要だ。" },
-        { date: "01/20/2024", content: "I'm on ski trip so will update tomorrow!" },
-        { date: "01/21/2024", content: "First snowboarding experience was so fun, I picked it up quite quickly cos I had skateboarding background but didn't tell Masaru and Kohei about it. So they kept telling me that my growth curve was insane, oh it felt good haha but overall it was a super fulfilling and fun weekend trip with some deep conversaitons about cultures and identities on the way to and back from the resort, some good snow sessions, delicious Nigata local food, night fun with Ito and a good onsen to finish off the trip. Seriously considering buying the full snowboarder package... Oh btw, the two boys took my snowboard virgin as well as my Nigata virgin." },
-        { date: "01/22/2024", content: "I had this sympton where I couldn't refuse anything from anybody but finally I'm starting to learn how to say No. Today I had one gym appointment but my work's quite busy and my shoulder's hurt from snowboarding so I said no. Later that day, I was called out to eat dinner and hang out with my junior high school mates but I also wasn't feeling it so I said no. Syaing no to others is sometimes a result of laziness but often times a protection for one's self. Setting appropriate priorities are really important to have constant sense of purpose and awareness for life. And I'm glad that I'm slowly starting to learn how that works." },
-        { date: "01/23/2024", content: "I'll admit, it does feel different this time. General purpose cognition feels so close to what we all treasure about humanity. But we will still keep focusing on ourselves, work with other people and coordinate. I think Everyone's job will look a lot more like that, we will all operate at a little higher level of abstraction, we will all have access to a lot more capability and we will still make decisions about what should happen in the world. - Sam Altman @ World Economic Forum 2024" },
-        { date: "01/24/2024", content: "Dad came to Tokyo and we had a discussion on the World Economic Forum including the China-Taiwan relation, Future with AI and Space Exploration. It was interesting how we shared quite a similar perspective on everything yet the attitudes are the completely opposite where I tend to be more optimistic while my dad being pessimistic. Maybe that comes from the experience, or personality I don't really know, but one thing I'm sure is, I hope to stay optimistic for the rest of my life. There's more fun in expecting for sure!" },
-        { date: "01/25/2024", content: "They said one of the thrusters failed during decent and the nav cam captured a nozzle-like object falling towards the lunar surface... I can't seem to image how this can happen other than cheeky lunarians physically attacking the lander lol Also, I remember watching the recorded live stream in the morning of the ski trip day and seeing the lander flipping upside down for a moment. Now it has become clear why it displayed what it displayed haha Anyway, I think it was a huge achievement including SLIM, LEV1 and LEV2, congrats!" },
-        { date: "01/26/2024", content: "After the running session and dinner event with AstroRunners, I was having a space conversation with my Argentinian colleague on the train back to my home. He’s experienced both the Argentinian and Japanese space industries and working cultures, and he said it was definitely more aggressive in terms of design and verification in Argentina. Well, it’s true that they were a satellite constellation company and that itself already acts as a redundancy which means you don’t really need to have every single one of your satellites perfectly designed and tested. But still I think Astroscale is in some way a bit too conservative on the verification process. Obviously, the more you test, the higher the quality, but that improvement curve will almost flatten out at a certain point and it feels like we are pushing through in that high investment low return region. We have to follow that famous equation: 技術の向上度 = (1+a)^N where a=一回の実証での技術向上度, N=実証の頻度, (Nの向上がスピードアップのカギ). Also we definitely need to put more focus and time on the design process where the issue correction cost is the lowest. Currently, I’m like the only guy looking after the GNC algorithm design and I strongly suggest Astroscale to put more focus, time, money and resource in the design phase." },
-        { date: "01/27/2024", content: "Today was wild, I was awake for 24+ hours. Had dinner with TJS gang and went to karaoke afterwards. Then we went to friend's place on the last train to play Momotetsu (World Map Edition). 15 years as the game setting which we expected to only last 4 hours but... it took focking 10 hours+... It was already close to noon when we finished playing the whole game. I haven't pulled this hard of an all nighter in a long time, but perhaps this is what's awaiting me for the ADRAS-J operations, RIP me." },
-        { date: "01/28/2024", content: "Slept from 13 to 22 straight, woke up, bought some veggies and meat, made myself a healthy supper and I am ready to go back to bed now at 1am. Nothing much to say today haha, hope I can focus during work tomorrow, good night <3" },
-        { date: "01/29/2024", content: "Had dinner with ISAK PAC of class of 2024 and shared my life stories. After hearing my stories, she said, ISAK is just so much more than what people may think it is, and there's much depth into every story that the people involved have to tell. I completely concur. This reminded me of the time where I saw an instagram post by ISAK about the current students having discussion on the Israel and Palestine situation with the students from both countries. I remember messaging Oli asking for the recording immediately after I saw the post. Unfortunately, it wasn't recorded but I hope to see more of these discussions and I hope they reach more people outside of the current ISAK community, because the news becomes personal when stories are shared. Actions that arise from collective awareness and sympathy are what could change the world." },
-        { date: "01/30/2024", content: "Worked the whole day so not much thoughts on anything today... but man, not that I experienced the bombing myself but the Kirishima news was quite surprising." },
-        { date: "01/31/2024", content: "My shoulder pain from snowboarding finally went away and I restarted my gym sessions which felt really good! Alright, some thoughts on the diary, it's been a month since I started writing this piece with Haku's startup idea being the trigger. It definitely gave me more insights and reflections everyday around my experiences and thoughts where I never really paid attention to this frequently and deeply before. Not just how my day went and how I felt, I also took notes on some quotes I thought were insightful and intriguing. And I'm quite surprised I was able to continue this for a month without missing a day, or not, maybe I'm just quite good at 継続 and turning them into 力. Enough self-praise, I'm going to bed now, hope to see you next month as well!" },
-        { date: "02/01/2024", content: "I had a chance to attend the Mission Requirement Review meeting for the ISSA-J1 project (details are confidential so I won't share it on this seemingly very public site lol). Much learning in terms of how the business development requirements are established first from which the mission requirements are derived with certain traceability. I sometimes think the mission and systems engineers at ASTROSCALE are a bit too pedantic and scrupulous, but it is at the same time very impressive and by them giving countless feedback on the proposal, it becomes more mature and exhaustive, so it is definitely essential to have them critial thinkers. Thanks M&S!" },
-        { date: "02/02/2024", content: "I knew some people didn't have good impression of ISAK after graduation, but today I felt that directly. As I'm involved in the alumni fundraising campaign, I asked one of my kohais if she's interested in giving back to school. She said she doesn't really want to give the money to ISAK, but not just that ISAK owes her money she feels. That moment is when I realised I had to change my strategy. Not to assume everybody likes and is willing to return the favour to the school. I think I need to emphasise the fact that the donation you are making is for your friends' performances, you don't need to put focus on the school's new building or whatever you are not interested in." },
-        { date: "02/03/2024", content: "6年ぶりの恵方巻、西向いて食べるんじゃなかったっけ、とか言ったけど、相場は恵方だよな、そりゃ毎年変わるよな、知ったかにも程があるよな。あと、鬼に扮して豆投げつけられました。部屋が豆まみれになりました。福で充満したと思っときます。豆をかぎつけた虫が大量発生するのだけは勘弁してほしいです。よろしくお願いします。自分の気持ちを言い出すのってそんな難しいことじゃないことも知りました。学びの毎日です。ありがたい限りです。" },
-        { date: "02/04/2024", content: "「歌うたいのバラッド」弾けるようになります。おしゃれなコードに富んでいて、弾けたら自由度が増すと思うので。" },
-        { date: "02/05/2024", content: "落とし物を拾った。iPhone 12だったか13だったか、よく覚えていない。交番に届け出た時に、拾得者には報労金を請求する権利があることを知った。「謝礼を請求する権利がありますけどどうしますか？」その問いに僕は即座に「いらないです」と答えた。もう少し貪欲であるべきなのか？交番までの往復10分以外に何か大きなものを犠牲にしたわけでもないし、良心が消耗品ってわけでもない。良心は消耗品ではない、かぁ。どうなのだろう。感情は消耗できるのか？良心が消耗品か否か、いい哲学の論文タイトルになりそうだ。交番からの帰路、こんなことを考えていた。その時は少し迷いがあったのかもしれないが、今は悔いはない。僕が下した決断は正しかったと信じている。 Also I met up with Ata today. He shared his vision on how he wanted to start a company especially in the field of space. I told him I've been eagerly and actively searching for the opportunities too. He said I can be the CPU and he can be the battery, that is a pretty good analogy I feel like, cos he's got a strong business background and I've got the technical knowledge and experiences. I also told him about enfty, I told him that our journey hasn't ended yet but we are all just polishing up ourselves like how luffy's crew did in their own respective island for 2 years. I said we are at that stage. We have so many great people scattered around the world. What one startup needs is a great idea and a great team. Let's fucking shoot for the stars man, so at the worst case, we still end up somewhere up in space." },
-        { date: "02/06/2024", content: "Wrote a paragraph of self-introduction for the summer school campaign email, didn't know if it was too casual/long/difficult/cringy/etc but here it goes -> Hello curious minds, I'm Yasu and I'll be your most exciting half-Taiwanese half-Japanese faculty member this summer (hopefully) by taking you on a trip around fiery inventions and cosmic imagination! Now, a sneak peak into my universe: I'm a huge chess fanatic, a decent Ultimate Frisbee player (yes it is an actual sport), a relatively loud singer and an extreme space nerd. I was really into space since I was a kid, so in university, I undoubtedly majored in aerospace engineering, studied my head off, sacrificed even my precious sleep, all for the dream of becoming an astronaut someday. Who knew that this little keen bean will end up in Tokyo working as a 'binman'. Oh, did I just disappoint you there? Perhaps, it was too early for you to assume without knowing he's the sweeper for the orbital highway ;)" },
-        { date: "02/07/2024", content: "Went to otorhinolaryngology today because I've been having this pain in my nostril for quite a while now. I showed her my nose, she told me my nasal septal cartilage is bent and this is not something to be ashamed of, some people will grow this way so don't worry. I was like wait a minute... but I didn't have this like 2 weeks before... oh I remember! I hit my nose pretty hard in the middle of January in a karaoke box when my colleague was trying to pass me the microphone and the moment the mic hit my nose, I heard some acute snipping sound but after checking my face on the mirror, confirming that it was only the top part of the nose that was bleeding, and I just said it's fine. Maybe that acute sound was the sound of my nasal ceptal cartilage snipping... oh lord, I just hope I can live with it normally... Amen." },
-        { date: "02/08/2024", content: "The launch date was finally officially publically excitingly announced to be on the 18th of Feb!!! I am ecstatic. I heard one of my colleague say that I was the most excited man in the GNC team about the launch. BRO, TELL ME WHO WOULDN'T BE EXCITED ABOUT THIS HISTORIC MISSION LAUNCHING SOON!! I hope I don't lose this young passion and energy during the operation phase. GO ADRAS-J!" },
-        { date: "02/09/2024", content: "Unexpected night drive to winter Hayama beach. The stars were beautiful, thinking that ADRAS-J will soon be one of them got me more excited. " },
-        { date: "02/10/2024", content: "Boys night before the snowboarding trip. We weren't supposed to stay up late cos we had to drive the next morning, but as soon as we saw one of our friends falling asleep, we were like, yes, he's driving tomorrow. We ended up pulling an all nighter with much conversations and dumb boys stuff. Junior high friends forever remain junior high friends I guess (in a good way tho)." },
-        { date: "02/11/2024", content: "Wished two friends a happy birthday and one a happy marrige on the top of the snow mountain. Second time snowboarding and I improved quite a lot I feel. Made my first ever jump and it went cleaner than I expected. The last few runs with just the relatively advanced people were super satisfying. A round of applause to Kanta for taking care of the beginner, it takes quite a lot of self sacrifice to be able to do that and he kept that till the very end. He's got my respect for that. Overall, it was a super fun trip and we definitely took back the time we lost with the traffic in the morning. Also, mum pointed out a point that I'm learning how to snowboard while Eileen Gu is studying aerospace engineering. I guess we are both on the right track haha. Finally, I'm closing this passage with the following statement: 'I will buy my own set of snowboard cos it's too fun!'" },
-        { date: "02/12/2024", content: "Dead for a day, did nothing much, thought nothing much..." },
-        { date: "02/13/2024", content: "Had a reflection meeting with Haku. He asked me several questions regarding how my diary writing was going. Through talking, I found out that my focus is more on the process of thoughts and actions than facts and emotions. 'Why I did what I did, what was the motivation and why was it important that I do what I do. Following back the chain of thoughts and train of actions can lead to more self discoveries and it's fun. He said prompt diary will start next week so I'll eagerly wait for that!" },
-        { date: "02/14/2024", content: "Happy Valentines Day :)))" },
-        { date: "02/15/2024", content: "(Day 1: Lin Family Reunion in Kagawa)" },
-        { date: "02/16/2024", content: "(Day 2: Lin Family Reunion in Kagawa)" },
-        { date: "02/17/2024", content: "The past three days, I was back in Kagawa for the whole LIN family reunion. It was an exceptionally precious moment where all the family member could gather up and have a talk and laugh like this and I really felt the love from everybody there. It's always warm and heartfelt spending time with the Taiwanese side of the family and I truly think that's where I belong. Thank you to all for supporting me, trusting me, expecting me and giving the care and love I need. Thank you so much and I love you too." },
-        { date: "02/18/2024", content: "産声が画面に映し出されていく。果てしない世界へようこそ。ADRAS-Jの人生はここから始まる。" },
-        { date: "02/19/2024", content: "(Busy with Operations)" },
-        { date: "02/20/2024", content: "It's really fun and inspiring hanging out with smart people. Especially those who are really good at verbalising their thoughts and emotions cos that's a trait I don't possess. Appreciation to K who taught me the importance of speaking up." },
-        { date: "02/21/2024", content: "Monitoring first ever orbit manoeuvre and attitude change in my life was such a thrilling experience. I saw the change in body angular velocity and the satellite was slowly acquiring the desired attitude. I've been simulating this for years but it still mesmerises me when I just close my eyes and imagine the satellite is just controlling itself in the darkness alone following the dynamical equations and obeying the natural laws. Man, that thing is really doing it's job up there as told and the idea of that already is so cool." },
-        { date: "02/22/2024", content: "First time being in a shift with Ota-san was super fun. He knows so much about not just GNC but the whole satellite system, hardware details, operation know-hows, all the things I'm not aware of. Much admiration." },
-        { date: "02/23/2024", content: "(Shift with Ogo-san)" },
-        { date: "02/24/2024", content: "(Shift with Sawayama-san)" },
-        { date: "02/25/2024", content: "1週間前に脈を打ち始め、4日前に開眼した。一昨日、歩くことを覚えて、今日、星を見失いつつある。いろんな声に翻弄されて、その度に入念に検査する。決して思い通りにいくことはない、これだから運用はやめらない。" },
-        { date: "02/26/2024", content: "人間には五感がある。視覚、聴覚、嗅覚、味覚、触覚。僕らの衛星には視覚しかない。だけど、人よりも広範囲な波長の光を検出できて、より正確に物体の距離や形状を測ることができる。真空には聴ける音色もなければ嗅げる匂いもないし、口にするものもなければ、触れれるものもない。だからせめていろんなものを見せてあげたいと、観測に特化した命を設計したのだ。次期ミッションで対象物を捕獲する。そのためのアームが追加される。そこに触覚という新たな感度が宿る。もし僕らが自分たちの五感を自由自在に設計できたなら、どんな世界になるのだろう。そんなことを想像しながら今日眠りにつく。" },
-        { date: "02/27/2024", content: "マイエレメントを観た。「私の夢はこの店なんかじゃない。私の夢はお前だよ、エンバー。」なんていい言葉なんだ。自分の気持ちは正直に伝えよう。" },
-        { date: "02/28/2024", content: "empty ..." },
-        { date: "02/29/2024", content: "empty ..." },
-        { date: "03/01/2024", content: "What do you think a relationship/commitment is? I think it's the state of wanting to spend time together, wanting to see each other. No, the fact that you think 'wanting' is in there is already wrong. With Jay and Lisa, I'm showered with so many questions everytime and it's quite eye-opening and refreshing, that they provide me different perspectives which I sometimes I really don't understand, but including that, it's fun. The other question was, 'What do you want from this? Why did you do what you did?' for which I didn't have an answer." },
-        { date: "03/02/2024", content: "empty ..." },
-        { date: "03/03/2024", content: "永遠の愛はない。人は常に変わり続ける生き物だから。先は見えてないけれど、共に過ごしている今はとてつもなく幸せなんだ。流動的な感情の中で、刻々と変形する心の穴に、ぴったりとはまったピースが君だった。飽きるまで一緒にいよう。いつか終わる夢を一緒に見よう。　　　　　　　　　　久しぶりに朝日を見た、夜勤に感謝、ただ、くそ眠い。" },
-        { date: "03/04/2024", content: "empty ..." },
-        { date: "03/05/2024", content: "Everything you do is for humanity. Why are we worth it? Why do you care about politics, a multi-planetary species? It's a good question to ask because at the foundation level, what is my philosophy and why does it lead to this conclusion? When I was a teenager, I had an existential crisis to figure out what's the meaning of life. For me at least, the religious texts and all of them I got my hands on did not seem convincing. I started reading philosophers. Be careful reading German philosophers as a teenager; it really is not going to help with your depression. I was struggling to find the meaning of life here, then I read 'Hitchhiker's Guide to the Galaxy,' and basically what Douglas Adams was saying was that we don't really know what the right questions to ask are. They come to the conclusion that the real problem is in trying to formulate the question. The universe is the answer; what are the questions? The more we can expand the scope and scale of consciousness, the better we can understand what questions to ask about the answer that is the universe. The more we expand consciousness and become a multi-planetary species or ultimately a multi-stellar species, we have a chance of figuring out what the hell is going on. This is why I think we should have more humans, both biological and digital consciousness, and why we should become a multi-planetary and multi-stellar species so that we can understand the nature of the universe. If you accept as a proposition that we don't really understand the meaning of life and we wish to understand the meaning of life, then in order to understand the meaning of life, we should expand consciousness such that we can ask better questions, learn more, expand beyond the solar system, ensure that life on Earth is good collectively for civilization, and we can be less dumb about the nature of the universe and maybe we can answer some of the questions about where it came from and where it's going. I think it's a sound philosophy; it's the least unsound philosophy that I can think of. - Elon Musk" },
-        { date: "03/06/2024", content: "empty ..." },
-        { date: "03/07/2024", content: "empty ..." },
-        { date: "03/08/2024", content: "empty ..." },
-        { date: "03/09/2024", content: "悲しい話、重い話にはしたくない。聞き飽きたかもしれないけれど、永遠の愛はない。人は常に変わり続ける生き物だから。価値観の話になるけれど、愛よりも大切なものが僕の人生にはある。それは子供の頃から追い続けている夢、宇宙に行くという夢。すごく自己中心的だと思うけど、自分を優先している自分がいる。正直にいうと、先は見えてない。無責任だと思うけど、なぜかは明確には分かっていない。趣味なのか、価値観なのか、まだ固まっていない。たけど、一緒に過ごしている今はとてつもなく幸せなんだ。今が幸せすぎるから目を背けてたんだと思う。先は見えてないって伝えると終わってしまうんじゃないかって。言わずにこの幸せが続くのなら言い出す必要もないよなって逃げてきたんだと思う。もう一つ正直にいうと、君のことが好きだ。今まで出会ってきた人の中でこんなにも会いたい、一緒にいたいと思わせてくれるような人はいなかった。日常のどうでもいことを共有したり、こまめにLINEする時間が幸せだった。街を歩いて目にするものに君を重ねてた、次一緒にここ来たいな、こういうもの好きかな、これ着たら似合うかな、そんなことを想像する時間が増えた。6年も空いたものだから、てっきり自分はもう誰かに夢中になることはないかなって思ってたけど、ちゃんと恋愛感情が残ってた。流動的な感情の中で、刻々と変形する心の穴に、ぴったりとはまったピースが君だった。だから自分の中でものすごく大きな葛藤がある。好きだけど先は見えていない。すごくわがままで失礼なことだって自分でもよく分かっているけれど、今だけは一緒にいたい。いつか終わる夢を一緒に見たい。こんな変なことを言ってる僕でもいいのなら、付き合ってほしい。ただ、先が見えないまま付き合うのが嫌なら振ってほしい。終わらせてほしい。もしこの先一緒にいて、別れがきた時に、君を今以上に傷つけることになるのなら、それも嫌だ。例え別れ話になったとしても、ありがとうで終わらせたい。ごめんねじゃなくてありがとうで。" },
-        { date: "03/10/2024", content: "empty ..." },
-        { date: "03/11/2024", content: "empty ..." },
-        { date: "03/12/2024", content: "empty ..." },
-        { date: "03/13/2024", content: "empty ..." },
-        { date: "03/14/2024", content: "スラスタ12が故障した。" },
-        { date: "03/15/2024", content: "empty ..." },
-        { date: "03/16/2024", content: "empty ..." },
-        { date: "03/17/2024", content: "empty ..." },
-        { date: "03/18/2024", content: "クロちゃんさんとイチさんと飲んで語らった。たくさん刺激をもらったし、たくさん共感した。「自分にはもったいない人だと思って接しなさい。そうすると自然と大切にできるから。」量子力学の時間が止まる、こそはわからなかったものの、人は変わり続けるだとか、今を楽しめばいいだとか" },
-        { date: "03/19/2024", content: "empty ..." },
-        { date: "03/20/2024", content: "「安而不忘危，存而不忘亡，治而不忘亂」平安の中でも危険を忘れず、生存しているなかでも滅亡を忘れず、統治できているなかでも動乱を忘れないこと。これが中国の安全哲学である。" },
-        { date: "03/21/2024", content: "empty ..." },
-        { date: "03/22/2024", content: "empty ..." },
-        { date: "03/23/2024", content: "彼女はいった。「私、繊細なの。」続けてこういった。「金玉キラキラ金曜日〜！！」　なんという二重人格。" },
-        { date: "03/24/2024", content: "empty ..." },
-        { date: "03/25/2024", content: "empty ..." },
-        { date: "03/26/2024", content: "empty ..." },
-        { date: "03/27/2024", content: "グーさんからスタートアップを一緒にやらないかというお誘いがあった。Tipikというらしい。アメリカにおいて、お客さんに向けたTipping experienceの充実化とレストラン側に向けたTipping servicesの質の向上を目標としている。思ったことをつらつら箇条書きで書くが、・プロダクトがウェブ/アプリ上のプラットフォームであることから経営コストを最小限に抑えられてリスクも小さい。・このサービスが普及することで、外食がより便利になり、外食する人たちが増えることは予想されるが、人が食べる絶対量が増えることはないので、市場規模が著しく変化することはない。ただ、生活する上で「食」は欠かせないものなので、市場規模が縮小するリスクもない。まあ、「食」は生きる上での必需出費なので、市場が安定していてすでに大きいことは明確。・より広範囲でのニーズ検証は必要だと思うが、同じ課題意識を持っている顧客は多そう。（アメリカに住んでいないのでそこの感触はぐーさんの方があると思う。）・課題としては、QR決済のサービスを実装してくれる店舗集めとその規模拡大の戦略だと思う。お店側のメリットとして何があるのかがまだ明確ではない。パッと思いつくのは、お支払いの自動化・スムーズ化による、業務効率化、回転率向上、人員削減、ミス削減、などがあるかもしれない。ただ、これだけで十分なのか、お店の人視点でのメリットデメリットとトレードオフを詰める必要がある。こういうサービスをこういう価格で提供しますが、実装していただけますか、と実際にインタビューしてみるのが有効な気がする。・課題があることは確かだと思うから、このサービスに登録してソリューションを実装して提供するお店の母数が鍵になってくる気がする。・この点、日本で使われているPayPay、LINE Pay、楽天Payなどがどのようにして多くの店舗にサービスを実装できたのかが気になる。この点はしかkりリサーチしておきたい、アメリカに流用できるものがあるかどうか。LINEユーザー、楽天モバイル契約者、ソフトバンク契約者が多い中、顧客はそれらのサービスをすでに利用している人にメリット（ポイントなど）を付与することで抑えることができる。大企業による数の暴力というやつか。・あと、一点気になったのは、このサービスにおけるお金の取り扱いについて、ポイントという形なのか、独自の通貨なのか、普通のウェブマネーなのか。たとえばPayPayだと、銀行口座からPayPayというアプリにお金を引き落として、PayPay BalanceというPayPay独自の通貨みたいなやつでQRコード決済できるんだけど、そういうイメージか？もしくはアプリにクレジットカードを登録しておいて、QR決済時にそのままクレジットカード利用という形になるのか？後者の方が楽な気がするが、その場合、クレジットカード決済とはどういう差別化ができるのか？、、、といったところだが、YCの選考で受かったら八月からシリコンバレーでみっちり起業するらしい。ワクワクする。" },
-        { date: "03/28/2024", content: "empty ..." },
-        { date: "03/29/2024", content: "empty ..." },
-        { date: "03/30/2024", content: "Summmer school course description: 'Beyond Earth' - is a dynamic journey into space exploration where students delve into the critical issues around satellites, engineering behind rockets and unknowns of the universe. The workshops deliver opportunities to imagine “what if” scenarios and provide hands-on experience on engineering water bottle rockets. Ultimately, this course aims to foster critical thinking skills and a broader perspective on why we explore the frontiers." },
-        { date: "03/31/2024", content: "Self-introduction for the summer school team: Hi all! I'm Yasu, a half Taiwanese half Japanese ISAK graduate (class of 2017), finished Uni with a master's degree in Aerospace Engineering and now sweeping the orbital highway to ensure Google maps usage and weather forecasting for humankind. A sneak peak into my universe: I just launched my first ever satellite that I had been working on for 3 years and while it is very exciting being in the mission control centre giving Go/NoGo judgement as part of the GNC subsystem, it's also messing up with my sleep schedule with unforeseen events (I'm much like preparing for the birth of a baby)  Despite all these, I still find time for my non-space passions including triathlon, basketball, chess and singing!I'm joining the summer school team as a faculty member this year. It's going to be my first official teaching experience so support from all of you would be much appreciated. Looking forward to meeting you all and hope I can take you on a trip around cosmic imagination!" },
-        { date: "08/04/2024", content: "empty ..." },
-        { date: "08/09/2024", content: "1. Question the requirements. Make the requirements less dumb. Otherwise, you can get a perfect answer to the wrong question. Try to make the question the least wrong possible. 2. Delete the process steps. 3. Optimise and simplify. 4. Automate."},
-        { date: "08/10/2024", content: "empty ..." },
-        { date: "08/11/2024", content: "empty ..." },
-        { date: "08/12/2024", content: "empty ..." },
-        { date: "08/13/2024", content: "empty ..." },
-        { date: "08/14/2024", content: "empty ..." },
-        { date: "08/15/2024", content: "empty ..." },
-        { date: "08/16/2024", content: "empty ..." },
-        { date: "08/17/2024", content: "empty ..." },
-        { date: "08/18/2024", content: "empty ..." },
-        { date: "08/19/2024", content: "empty ..." },
-        { date: "08/20/2024", content: "empty ..." },
-        // Add more entries as needed
-    ];
-
-    const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-
-    // Find today's index in the diaryEntries array
-    const todayIndex = diaryEntries.findIndex(entry => entry.date === today);
-    let currentDayIndex = todayIndex !== -1 ? todayIndex : 0;
-
-    const dateSectionElement = document.getElementById('dateSection');
-    const diaryContentElement = document.getElementById('diaryContent');
-
-    // Function to update the date and diary entry based on the day index
-    function updateDiaryContent() {
-        const currentDate = diaryEntries[currentDayIndex].date;
-        const formattedDate = new Date(currentDate).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-
-        dateSectionElement.textContent = `${formattedDate}`;
-        diaryContentElement.textContent = diaryEntries[currentDayIndex].content;
-    }
-
-    // Function to change the day (forward or backward)
-    function changeDay(delta) {
-        currentDayIndex += delta;
-
-        // Ensure the index stays within the bounds of the diaryEntries array
-        if (currentDayIndex < 0) {
-            currentDayIndex = 0;
-        } else if (currentDayIndex >= diaryEntries.length) {
-            currentDayIndex = diaryEntries.length - 1;
-        }
-        updateDiaryContent();
-    }
-
-    // Initial update of diary content
-    updateDiaryContent();
-</script>
-
 </body>
 </html>
