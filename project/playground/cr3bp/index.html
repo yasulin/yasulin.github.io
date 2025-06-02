@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Three-Body with Random Initial Velocity</title>
+  <title>3 Body Problem</title>
   <style>
     /* ─── Home button styling ───────────────────────────────────────────────── */
     .home-btn {
@@ -147,7 +147,7 @@
 
       // Store position in history for tracing
       history.push({ x: tertiary.x, y: tertiary.y });
-      if (history.length > 20000) {
+      if (history.length > 100000) {
         history.shift();
       }
     }

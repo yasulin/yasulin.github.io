@@ -1,53 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
-    <!-- Load Roboto from Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Load Roboto from Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+    rel="stylesheet"
+  />
 
-    <style>
-      /*
-        Simple styling for the main page:
-        - White background, black text
-        - Use Roboto everywhere
-        - Center everything vertically/horizontally
-      */
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #ffffff;
-        color: #000000;
-        font-family: 'Roboto', sans-serif;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
+  <style>
+    /* ─── Fullscreen canvas for three-body background ──────────────────────── */
+    canvas#bgCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
 
-      h1 {
-        font-size: 2rem;
-      }
+    /* ─── Ensure content sits above the canvas ─────────────────────────────── */
+    .content-wrapper {
+      position: relative;
+      z-index: 1; /* above the canvas */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: transparent; /* let canvas show through when visible */
+    }
 
-      .button-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px; /* space between buttons */
-      }
+    /* ─── Main page styling ───────────────────────────────────────────────── */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff; /* white background behind canvas */
+      font-family: 'Roboto', sans-serif;
+      height: 100vh;
+      overflow: hidden; /* prevent scrollbars */
+    }
 
-      button {
+    h1 {
+      font-size: 2rem;
+      margin: 1rem 0;
+      cursor: pointer; /* indicate clickable */
+      user-select: none;
+    }
+
+    .horizontal-line {
+      border: none;
+      height: 2px;
+      background-color: #666666;
+      width: 85%;
+      margin: 1.5rem auto;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* space between buttons */
+    }
+
+    button {
       font-family: 'Roboto', sans-serif;
       font-size: 1rem;
       padding: 0.75rem 1.5rem;
-      border: 2px solid #333333;
       background-color: #ffffff;
       color: #333333;
       border-radius: 8px;
@@ -59,32 +82,180 @@
     button:hover {
       background-color: #f0f0f0;
     }
-
-      .horizontal-line {
-      border: none;            /* Remove default border */
-      height: 2px;             /* Thickness */
-      background-color: #666;  /* Color */
-      width: 85%;              /* Length (80% of container) */
-      margin: 1.5rem auto;     /* Center horizontally with some vertical spacing */
-    }
-    </style>
+    /* ───────────────────────────────────────────────────────────────────────── */
+  </style>
 </head>
 
 <body>
-    <!--
-      Main heading for the site
-    -->
-    <h1>lin</h1>
-    <hr class="horizontal-line">
+  <!-- Background canvas for three-body simulation -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Main content overlaid on top of the canvas -->
+  <div class="content-wrapper">
+    <!-- Clicking this toggles the simulation -->
+    <h1 id="toggleSim">lin</h1>
     <div class="button-container">
-      <!--
-        Each button navigates to its respective folder.
-        Browsers will look for story/index.html, etc.
-      -->
+      <hr class="horizontal-line" />
       <button onclick="location.href='story/'">Story</button>
-      <!-- <button onclick="location.href='education/'">Education</button> -->
       <button onclick="location.href='creation/'">Creation</button>
       <button onclick="location.href='project/'">Project</button>
     </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    const toggleSim = document.getElementById('toggleSim');
+
+    // ─── Declare centerX/centerY before using them ───────────────────────────
+    let centerX, centerY;
+    let animationId = null;
+    let simVisible = true; // simulation starts visible
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      centerX = canvas.width / 2;
+      centerY = canvas.height / 2;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    /*********************
+     *  Simulation Setup *
+     *********************/
+    const G = 500.0;
+    const m1 = 1000.0;
+    const m2 = 10.0;
+    const rOrbit = 150.0;
+    const omega = Math.sqrt(G * (m1 + m2) / Math.pow(rOrbit, 3));
+    const dt = 0.016;
+    const tertiaryRadius = 5;
+
+    let theta2, sx, sy;
+    const tertiary = { x: 0, y: 0, vx: 0, vy: 0 };
+    const history = [];
+
+    function initSimulation() {
+      theta2 = 0.0;
+      sx = centerX + rOrbit * Math.cos(theta2);
+      sy = centerY + rOrbit * Math.sin(theta2);
+
+      tertiary.x = centerX + (Math.random() - 0.5) * 600;
+      tertiary.y = centerY + (Math.random() - 0.5) * 600;
+      tertiary.vx = (Math.random() - 0.5) * 150.0;
+      tertiary.vy = (Math.random() - 0.5) * 10.0;
+
+      history.length = 0;
+      history.push({ x: tertiary.x, y: tertiary.y });
+    }
+
+    function gravAccel(ox, oy, bx, by, bm) {
+      const dx = bx - ox;
+      const dy = by - oy;
+      const distSq = dx * dx + dy * dy;
+      const dist = Math.sqrt(distSq) + 1e-6;
+      const a = G * bm / distSq;
+      return {
+        ax: a * (dx / dist),
+        ay: a * (dy / dist)
+      };
+    }
+
+    function updateSecondary() {
+      theta2 += omega * dt;
+      sx = centerX + rOrbit * Math.cos(theta2);
+      sy = centerY + rOrbit * Math.sin(theta2);
+    }
+
+    function updateTertiary() {
+      const a1 = gravAccel(tertiary.x, tertiary.y, centerX, centerY, m1);
+      const a2 = gravAccel(tertiary.x, tertiary.y, sx, sy, m2);
+      tertiary.vx += (a1.ax + a2.ax) * dt;
+      tertiary.vy += (a1.ay + a2.ay) * dt;
+      tertiary.x += tertiary.vx * dt;
+      tertiary.y += tertiary.vy * dt;
+
+      history.push({ x: tertiary.x, y: tertiary.y });
+      if (history.length > 100000) history.shift();
+    }
+
+    function isTertiaryOutOfBounds() {
+      return (
+        tertiary.x < -tertiaryRadius ||
+        tertiary.x > canvas.width + tertiaryRadius ||
+        tertiary.y < -tertiaryRadius ||
+        tertiary.y > canvas.height + tertiaryRadius
+      );
+    }
+
+    function drawBody(x, y, radius, color) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+
+    function animate() {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      updateSecondary();
+      updateTertiary();
+
+      if (isTertiaryOutOfBounds()) {
+        initSimulation();
+        setTimeout(() => {
+          if (simVisible) animate();
+        }, 0);
+        return;
+      }
+
+      if (history.length > 1) {
+        ctx.beginPath();
+        ctx.moveTo(history[0].x, history[0].y);
+        for (let i = 1; i < history.length; i++) {
+          ctx.lineTo(history[i].x, history[i].y);
+        }
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      // Only draw tertiary (black); primary/secondary are transparent
+      drawBody(tertiary.x, tertiary.y, tertiaryRadius, '#000000');
+
+      animationId = requestAnimationFrame(animate);
+    }
+
+    function startSimulation() {
+      if (!simVisible) {
+        simVisible = true;
+        canvas.style.display = 'block';
+        initSimulation();
+        animate();
+      }
+    }
+
+    function stopSimulation() {
+      if (simVisible) {
+        simVisible = false;
+        canvas.style.display = 'none';
+        if (animationId !== null) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+      }
+    }
+
+    // Toggle on <h1> click
+    toggleSim.addEventListener('click', () => {
+      simVisible ? stopSimulation() : startSimulation();
+    });
+
+    // Initialize and start
+    initSimulation();
+    animate();
+  </script>
 </body>
 </html>
