@@ -64,6 +64,12 @@
       font-size: 1.75rem;
     }
 
+    p {
+      /* Constrain width for readability on large screens */
+      max-width: 800px;
+      margin: 1.5rem;    /* center it horizontally */
+    }
+
     /*
       Card container: white background (same as page),
       but with a light drop shadow, rounded corners, and padding.
@@ -121,16 +127,28 @@
     <img src="../../images/back-icon.svg" alt="Back" width="24" height="24" />
   </a> -->
   <!-- ────────────────────────────────────────────────────────────────────────── -->
-  <h1>Silk Road Route</h1>
-
+  <h1>Silk Road</h1>
+  <p>
+    I decided to cycle across the Silk Road.
+    People may ask why not just fly to Istanbul, why bother riding, why take risks, why spend so much money and time.
+    To me, it’s got something almost similar to why I dream to become an astronaut.
+    It’s the unknown that makes it attractive.
+    It’s the challenge that motivates me.
+    It’s the vast nature I want to feel.
+    It’s the warmth of people I want to encounter.
+    It’s the norm I want to question.
+    It’s the borders I want to forget.
+    And that’s a life I want to live.
+  </p>
   <div class="card">
+
     <div class="map-container">
       <iframe
         src="https://www.google.com/maps/d/u/0/embed?mid=1Xsh9BYem1UuXFFwWAjcufyw0tU8hyEs&ehbc=2E312F"
         allowfullscreen
       ></iframe>
     </div>
-    <div class="caption"></div>
+    <div class="caption">The route from Beijing to Rome for the bike touring trip.</div>
   </div>
 </body>
 </html>
