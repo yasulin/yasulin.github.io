@@ -29,6 +29,22 @@
       border-radius: 4px;
     }
     /* ────────────────────────────────────────────────────────────────────────── */
+    /* ─── Go Back button styling ──────────────────────────────────────────── */
+    .back-btn {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: #000000;
+      z-index: 1000;
+    }
+
+    .back-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
     /*
       White background, black text, Roboto font.
       Center the embedded player.
@@ -86,6 +102,11 @@
     <img src="../../images/home-icon.svg" alt="Home" width="24" height="24" />
   </a>
   <!-- ────────────────────────────────────────────────────────────────────────── -->
+  <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
+  <a href="/" class="back-btn" title="Back">
+    <img src="../../images/back-icon.svg" alt="Back" width="24" height="24" />
+  </a>
+  <!-- ────────────────────────────────────────────────────────────────────────── -->
   <!-- Page title -->
   <h1>Birthday Videos</h1>
   <div class="video-container">
@@ -100,7 +121,7 @@
     ></iframe>
   </div>
 
-  <h1>Alumni Giving Campaign 2024</h1>
+  <h1>Alumni Fundraiser</h1>
   <div class="video-container">
     <!--
       1) Replace “UUxxxxxxxxxxxxxxxxxxxxxx” below with your actual Uploads Playlist ID.

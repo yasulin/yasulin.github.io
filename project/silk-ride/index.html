@@ -29,6 +29,22 @@
       border-radius: 4px;
     }
     /* ────────────────────────────────────────────────────────────────────────── */
+    /* ─── Go Back button styling ──────────────────────────────────────────── */
+    .back-btn {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: #000000;
+      z-index: 1000;
+    }
+
+    .back-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
     /* Base page styling */
     html, body {
       margin: 0;
@@ -98,6 +114,11 @@
   <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
   <a href="/" class="home-btn" title="Home">
     <img src="../../images/home-icon.svg" alt="Home" width="24" height="24" />
+  </a>
+  <!-- ────────────────────────────────────────────────────────────────────────── -->
+  <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
+  <a href="/" class="back-btn" title="Back">
+    <img src="../../images/back-icon.svg" alt="Back" width="24" height="24" />
   </a>
   <!-- ────────────────────────────────────────────────────────────────────────── -->
   <h1>Silk Road Route</h1>
