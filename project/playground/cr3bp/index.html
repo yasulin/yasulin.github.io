@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Three-Body with Random Initial Velocity</title>
+  <style>
+    /* ─── Home button styling ───────────────────────────────────────────────── */
+    .home-btn {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: #000000;
+      z-index: 1000;
+    }
+
+    .home-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #fff; /* white background */
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
+  <a href="/" class="home-btn" title="Home">
+    <img src="../../../images/home-icon-white.svg" alt="Home" width="24" height="24" />
+  </a>
+  <!-- ────────────────────────────────────────────────────────────────────────── -->
+  <canvas id="threeBodyCanvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('threeBodyCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // ─── Declare centerX/centerY before using them ───────────────────────────
+    let centerX, centerY;
+
+    // Resize canvas to fill window and update centerX/centerY
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      centerX = canvas.width / 2;
+      centerY = canvas.height / 2;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // initial sizing
+
+    /*********************
+     *  Simulation Setup *
+     *********************/
+
+    const G = 500.0;       // Gravitational constant (arbitrary units)
+    const m1 = 1000.0;     // Primary mass
+    const m2 = 10.0;       // Secondary mass
+    const rOrbit = 150.0;  // Orbit radius of secondary around primary (pixels)
+
+    // Angular speed for circular orbit of secondary:
+    // ω = sqrt[ G * (m1 + m2) / rOrbit^3 ]
+    const omega = Math.sqrt(G * (m1 + m2) / Math.pow(rOrbit, 3));
+
+    // Time step (seconds per frame)
+    const dt = 0.016; // ~60 FPS
+
+    // Drawing radii
+    const primaryRadius   = 20;
+    const secondaryRadius = 12;
+    const tertiaryRadius  = 5;
+
+    // State variables (will be reset)
+    let theta2, sx, sy;
+    const tertiary = { x: 0, y: 0, vx: 0, vy: 0 };
+    const history = [];
+
+    // Initialize (or reinitialize) the entire system:
+    function initSimulation() {
+      // Start secondary at angle 0
+      theta2 = 0.0;
+      sx = centerX + rOrbit * Math.cos(theta2);
+      sy = centerY + rOrbit * Math.sin(theta2);
+
+      // Random initial position and velocity for tertiary
+      tertiary.x = centerX + (Math.random() - 0.5) * 600;
+      tertiary.y = centerY + (Math.random() - 0.5) * 600;
+      tertiary.vx = (Math.random() - 0.5) * 150.0;
+      tertiary.vy = (Math.random() - 0.5) * 10.0;
+
+      // Clear trajectory history and store the starting point
+      history.length = 0;
+      history.push({ x: tertiary.x, y: tertiary.y });
+    }
+
+    // Compute gravitational acceleration from a body at (bx,by) on (ox,oy)
+    function gravAccel(ox, oy, bx, by, bm) {
+      const dx = bx - ox;
+      const dy = by - oy;
+      const distSq = dx * dx + dy * dy;
+      const dist = Math.sqrt(distSq) + 1e-6; // avoid divide by zero
+      const a = G * bm / distSq;
+      return {
+        ax: a * (dx / dist),
+        ay: a * (dy / dist)
+      };
+    }
+
+    // Update secondary’s position in circular orbit
+    function updateSecondary() {
+      theta2 += omega * dt;
+      sx = centerX + rOrbit * Math.cos(theta2);
+      sy = centerY + rOrbit * Math.sin(theta2);
+    }
+
+    // Update tertiary under gravity of primary and secondary
+    function updateTertiary() {
+      // Acceleration from primary
+      const a1 = gravAccel(
+        tertiary.x, tertiary.y,
+        centerX,    centerY,    m1
+      );
+      // Acceleration from secondary
+      const a2 = gravAccel(
+        tertiary.x, tertiary.y,
+        sx,         sy,         m2
+      );
+
+      // Sum accelerations
+      const ax = a1.ax + a2.ax;
+      const ay = a1.ay + a2.ay;
+
+      // Euler integration
+      tertiary.vx += ax * dt;
+      tertiary.vy += ay * dt;
+      tertiary.x  += tertiary.vx * dt;
+      tertiary.y  += tertiary.vy * dt;
+
+      // Store position in history for tracing
+      history.push({ x: tertiary.x, y: tertiary.y });
+      if (history.length > 20000) {
+        history.shift();
+      }
+    }
+
+    // Draw a filled circle at (x, y) with given radius and color
+    function drawBody(x, y, radius, color) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+
+    // Check if tertiary is out of the visible canvas
+    function isTertiaryOutOfBounds() {
+      return (
+        tertiary.x < -tertiaryRadius ||
+        tertiary.x > canvas.width + tertiaryRadius ||
+        tertiary.y < -tertiaryRadius ||
+        tertiary.y > canvas.height + tertiaryRadius
+      );
+    }
+
+    // Main animation loop
+    function animate() {
+      // Clear canvas to white
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      updateSecondary();
+      updateTertiary();
+
+      // If tertiary goes off-screen, reset the simulation
+      if (isTertiaryOutOfBounds()) {
+        initSimulation();
+        return requestAnimationFrame(animate);
+      }
+
+      // Draw tertiary’s trajectory
+      if (history.length > 1) {
+        ctx.beginPath();
+        ctx.moveTo(history[0].x, history[0].y);
+        for (let i = 1; i < history.length; i++) {
+          ctx.lineTo(history[i].x, history[i].y);
+        }
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; // trajectory color
+        ctx.lineWidth   = 1;
+        ctx.stroke();
+      }
+
+      // Draw primary at center (bright red)
+      drawBody(centerX, centerY, primaryRadius, '#D94F04');
+
+      // Draw secondary (dark orange)
+      drawBody(sx, sy, secondaryRadius, '#025259');
+
+      // Draw tertiary (dark blue)
+      drawBody(tertiary.x, tertiary.y, tertiaryRadius, '#F29325');
+
+      requestAnimationFrame(animate);
+    }
+
+    // Initialize everything and start loop
+    initSimulation();
+    animate();
+
+  </script>
+</body>
+</html>
