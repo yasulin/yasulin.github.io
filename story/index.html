@@ -23,7 +23,6 @@
       color: #000000;
       z-index: 1000;
     }
-
     .home-btn:hover {
       background-color: rgba(0, 0, 0, 0.05);
       border-radius: 8px;
@@ -40,15 +39,15 @@
       color: #000000;
       z-index: 1000;
     }
-
     .back-btn:hover {
       background-color: rgba(0, 0, 0, 0.05);
       border-radius: 8px;
     }
     /* ────────────────────────────────────────────────────────────────────────── */
+
     /*
-      Basic styling: white background, black text, Roboto font,
-      with a small margin to keep things from touching the edges.
+      Instead of forcing body to be 100vh and centering everything,
+      remove those and add padding-top so content always starts lower.
     */
     html,
     body {
@@ -57,12 +56,18 @@
       background-color: #ffffff;
       color: #333333;
       font-family: 'Roboto', sans-serif;
-      height: 100vh;
-      width: 80vw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+
+      /* Add top padding so there’s always blank space above */
+      padding-top: 80px; /* adjust as needed (e.g. 60px, 100px) */
+
+      /* Constrain width for readability on large screens */
+      max-width: 800px;
+      margin: 0 auto;    /* center it horizontally */
+    }
+
+    /* Ensure the page can scroll if content is tall */
+    body {
+      overflow-y: auto;
     }
 
     .content {
@@ -72,33 +77,37 @@
 </head>
 
 <body>
+  <!-- ─── Home button (fixed top-left) ───────────────────────────────────────── -->
+  <a href="/" class="home-btn" title="Home">
+    <img src="../images/home-icon.svg" alt="Home" width="24" height="24" />
+  </a>
+  <!-- ────────────────────────────────────────────────────────────────────────── -->
+
+  <!-- ─── Back button (fixed top-right) ──────────────────────────────────────── -->
+  <a href="javascript:history.back()" class="back-btn" title="Back">
+    <img src="../images/back-icon.svg" alt="Back" width="24" height="24" />
+  </a>
+  <!-- ────────────────────────────────────────────────────────────────────────── -->
+
+
   <div class="content">
-    <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
-    <a href="/" class="home-btn" title="Home">
-      <img src="../images/home-icon.svg" alt="Home" width="24" height="24" />
-    </a>
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
-    <a href="/" class="back-btn" title="Back">
-      <img src="../images/back-icon.svg" alt="Back" width="24" height="24" />
-    </a>
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- This page is intentionally left blank for now. -->
-    <!-- Example: If this is the Story page, you could put an <h1>Story</h1> here later. -->
     <h1>Story</h1>
     <p>
-      Meet Yasunori Lin Tsumura — GNC wizard by day, celestial dreamer by night. He’s the kind of guy who can optimize a Kalman Filter in his sleep, simulate a space rendezvous before breakfast, and still have time to drop a killer verse or checkmate you mid-conversation. Tokyo-based but Earth-bound only temporarily, he’s got one eye on the stars and the other on that Monte Carlo simulation running in the background. Fluent in orbital mechanics, fluent in Japanese, English, and Mandarin. Whether he's hiking ancient trails in China or coding up a Flask game in a Docker container, he brings clarity, creativity, and control to everything he touches. Oh, and he sings — beautifully.
-      <br/>
-      <br/>
+      Meet Yasunori Lin Tsumura — GNC wizard by day, celestial dreamer by night. He’s the
+      kind of guy who can optimize a Kalman Filter in his sleep, simulate a space rendezvous
+      before breakfast, and still have time to drop a killer verse or checkmate you mid-conversation.
+      Tokyo-based but Earth-bound only temporarily, he’s got one eye on the stars and the other
+      on that Monte Carlo simulation running in the background. Fluent in orbital mechanics,
+      fluent in Japanese, English, and Mandarin. Whether he's hiking ancient trails in China
+      or coding up a Flask game in a Docker container, he brings clarity, creativity, and control
+      to everything he touches. Oh, and he sings — beautifully.
+      <br/><br/>
       Future astronaut. Global explorer. Space educator. Galactic poet.
-      <br/>
-      <br/>
+      <br/><br/>
       If it orbits, he’ll navigate it. If it’s meaningful, he’ll write it.
-      <br/>
-      <br/>
+      <br/><br/>
       (Written by ChatGPT)
-
-</p>
+    </p>
   </div>
 </body>
 </html>
