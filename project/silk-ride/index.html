@@ -13,6 +13,26 @@
   />
 
   <style>
+    /* ─── Donate button styling ────────────────────────────────────────────── */
+    .donate-btn {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background-color: transparent; /* deep green */
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.5rem;
+      border: none;
+      text-decoration: none;
+      z-index: 1000;
+      transition: background-color 0.2s ease;
+    }
+    .donate-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
+
     /* ─── Home button styling ───────────────────────────────────────────────── */
     .home-btn {
       position: fixed;
@@ -23,28 +43,33 @@
       color: #000000;
       z-index: 1000;
     }
-
     .home-btn:hover {
       background-color: rgba(0, 0, 0, 0.05);
       border-radius: 4px;
     }
     /* ────────────────────────────────────────────────────────────────────────── */
-    /* ─── Go Back button styling ──────────────────────────────────────────── */
-    .back-btn {
-      position: fixed;
-      top: 12px;
-      right: 12px;
-      font-size: 1.5rem;
-      text-decoration: none;
-      color: #000000;
-      z-index: 1000;
-    }
 
-    .back-btn:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-      border-radius: 8px;
+    /* ─── Footer donate button (centered below map) ────────────────────────── */
+    .donate-footer {
+      display: block;
+      margin: 1.5rem auto;
+      background-color: #3c5a3e;
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      padding: 1.5rem;
+      border: none;
+      border-radius: 1rem;
+      text-decoration: none;
+      text-align: center;
+      width: max-content;
+      transition: background-color 0.2s ease;
+    }
+    .donate-footer:hover {
+      background-color: #4f6f52; /* deep green */
     }
     /* ────────────────────────────────────────────────────────────────────────── */
+
     /* Base page styling */
     html, body {
       margin: 0;
@@ -65,16 +90,13 @@
     }
 
     p {
-      /* Constrain width for readability on large screens */
       line-height: 1.5;
       max-width: 800px;
-      margin: 1.5rem;    /* center it horizontally */
+      margin: 1.5rem 3rem;
     }
 
     /*
-      Card container: white background (same as page),
-      but with a light drop shadow, rounded corners, and padding.
-      Also centering it with max-width.
+      Card container: white background, light drop shadow, rounded corners, padding
     */
     .card {
       background-color: #ffffff;
@@ -87,17 +109,15 @@
     }
 
     /*
-      Inside the card, the map-container is still responsive.
-      We’ll give it fixed height (70vh) but allow it to fill the card’s width.
+      Map container: responsive, fixed height (70vh), fills card width
     */
     .map-container {
       position: relative;
       width: 100%;
       height: 70vh;
-      border-radius: 6px; /* slightly smaller radius than card */
-      overflow: hidden;   /* clip the iframe corners */
+      border-radius: 6px;
+      overflow: hidden;
     }
-
     .map-container iframe {
       position: absolute;
       top: 0;
@@ -107,7 +127,7 @@
       border: none;
     }
 
-    /* Optional caption or instructions below the map */
+    /* Optional caption below the map */
     .caption {
       font-size: 0.9rem;
       color: #555555;
@@ -118,16 +138,21 @@
 </head>
 
 <body>
-  <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
+  <!-- Donate button (top-right) -->
+  <a
+    href="https://donorbox.org/silk-road-bike-touring"
+    class="donate-btn"
+    target="_blank"
+    rel="noopener"
+  >
+    <img src="../../images/donation-pocket-icon.svg" alt="Home" width="30" height="30" />
+  </a>
+
+  <!-- Home button (top-left) -->
   <a href="/" class="home-btn" title="Home">
     <img src="../../images/home-icon.svg" alt="Home" width="24" height="24" />
   </a>
-  <!-- ────────────────────────────────────────────────────────────────────────── -->
-  <!-- ─── Home button (appears top-left on every page) ───────────────────────── -->
-  <!-- <a href="/" class="back-btn" title="Back">
-    <img src="../../images/back-icon.svg" alt="Back" width="24" height="24" />
-  </a> -->
-  <!-- ────────────────────────────────────────────────────────────────────────── -->
+
   <h1>Silk Road</h1>
   <p>
     I decided to cycle across the Silk Road.
@@ -141,20 +166,26 @@
     It’s the borders I want to forget.
     And that’s a life I want to live.
   </p>
-  <div class="card">
 
+  <div class="card">
     <div class="map-container">
       <iframe
         src="https://www.google.com/maps/d/u/0/embed?mid=1Xsh9BYem1UuXFFwWAjcufyw0tU8hyEs&ehbc=2E312F"
         allowfullscreen
       ></iframe>
     </div>
-    <div class="caption">The route from Beijing to Rome for the bike touring trip.</div>
+    <div class="caption">
+      The route from Beijing to Rome for the bike touring trip.
+    </div>
   </div>
+  <!-- Footer Donate button (centered below map) -->
+  <a
+    href="https://donorbox.org/silk-road-bike-touring"
+    class="donate-footer"
+    target="_blank"
+    rel="noopener"
+  >
+    Donate
+  </a>
 </body>
 </html>
-
-
-
-
-<!-- src="https://www.google.com/maps/d/u/0/embed?mid=1Xsh9BYem1UuXFFwWAjcufyw0tU8hyEs&ehbc=2E312F" -->
