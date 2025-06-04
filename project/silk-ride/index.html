@@ -86,56 +86,6 @@
     }
     /* ────────────────────────────────────────────────────────────────────────── */
 
-    /* ─── Modal overlay ────────────────────────────────────────────────────── */
-    .modal-overlay {
-      display: none; /* hidden by default */
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-content {
-      background-color: #ffffff;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 600px;
-      max-height: 80%;
-      overflow-y: auto;
-      padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      position: relative;
-    }
-    .modal-content h2 {
-      margin-top: 0;
-      font-size: 1.25rem;
-      color: #333333;
-    }
-    .modal-content p {
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: #444444;
-      margin-bottom: 1rem;
-    }
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: none;
-      border: none;
-      font-size: 1.25rem;
-      cursor: pointer;
-      color: #888888;
-    }
-    .modal-close:hover {
-      color: #000000;
-    }
-    /* ────────────────────────────────────────────────────────────────────────── */
-
     /* Base page styling */
     html, body {
       margin: 0;
@@ -227,12 +177,12 @@
   <p>
     I decided to cycle across the Silk Road.
     You may ask why not just fly to Istanbul, why bother riding, why take risks, why spend so much money and time.
-    To me, it’s got something almost similar to why I dream to become an astronaut.
+    To me, it’s something almost like my dream to become an astronaut.
     It’s the unknown that makes it attractive.
     It’s the challenge that motivates me.
     It’s the vast nature I want to feel.
     It’s the warmth of people I want to encounter.
-    It’s the norm I want to question.
+    It’s the norms I want to question.
     It’s the borders I want to forget.
     And that’s a life I want to live.
   </p>
@@ -259,72 +209,9 @@
     Donate
   </a>
 
-  <!-- Disclosure link which triggers modal -->
-  <div class="disclosure-link" id="openModal">
-    Important Disclosures (Specified Commercial Transactions Act)
-  </div>
-
-  <!-- Modal Overlay -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-content">
-      <button class="modal-close" id="closeModal">&times;</button>
-      <h2>Specified Commercial Transactions Act Disclosure</h2>
-      <p><strong>Seller (Organizer) Information:</strong><br/>
-         Name: Silk Road Bike Touring<br/>
-         Representative: Yasunori Tsumura<br/>
-         Address: 11-31 6-Chome Okusawa Setagaya Tokyo Japan 158-0083<br/>
-         Telephone: 080-6286-7115<br/>
-         Email: 23lovedog@gmail.com<br/>
-         URL: https://donorbox.org/silk-road-bike-touring
-      </p>
-      <p><strong>Payment Method:</strong><br/>
-         Credit card payments are processed by Stripe/Donorbox. Accepted cards: Visa, MasterCard, American Express, Discover, JCB.
-      </p>
-      <p><strong>Donation Details:</strong><br/>
-         All donations are voluntary. No goods or services are exchanged for donations, and no shipping or delivery applies.
-      </p>
-      <p><strong>Cancellations / Refunds:</strong><br/>
-         Donations are non-refundable. If you have questions regarding a donation, please contact us at 23lovedog@gmail.com within 7 days.
-      </p>
-      <p><strong>Consumption Tax:</strong><br/>
-         Donations are exempt from consumption tax under current regulations.
-      </p>
-      <p><strong>Additional Fees:</strong><br/>
-         Stripe/Donorbox processing fees may apply. Any fees charged by the processor do not go to the organizer.
-      </p>
-      <p><strong>Governing Law:</strong><br/>
-         These transactions are governed by the laws of Japan.
-      </p>
-      <p style="font-size:0.8rem; color:#666;">
-        This disclosure page is provided in accordance with Japan’s Specified Commercial Transactions Act. For more details, see
-        <a href="https://support.stripe.com/questions/how-to-create-and-display-a-commerce-disclosure-page"
-           target="_blank" rel="noopener" style="color:#3c5a3e; text-decoration:none;">
-          Stripe’s Commerce Disclosure Guide
-        </a>.
-      </p>
-    </div>
-  </div>
-
-  <script>
-    // Modal functionality
-    const openModal = document.getElementById('openModal');
-    const closeModal = document.getElementById('closeModal');
-    const modalOverlay = document.getElementById('modalOverlay');
-
-    openModal.addEventListener('click', () => {
-      modalOverlay.style.display = 'flex';
-    });
-
-    closeModal.addEventListener('click', () => {
-      modalOverlay.style.display = 'none';
-    });
-
-    // Close if clicking outside content
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) {
-        modalOverlay.style.display = 'none';
-      }
-    });
-  </script>
+  <!-- Disclosure link which navigates to separate disclosure sub-page -->
+  <a href="disclosure.html" class="disclosure-link">
+    Commercial Disclosure (Specified Commercial Transactions Act)
+  </a>
 </body>
 </html>
