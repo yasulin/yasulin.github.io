@@ -86,6 +86,83 @@
     }
     /* ────────────────────────────────────────────────────────────────────────── */
 
+    /* ─── Read More button ─────────────────────────────────────────────────── */
+    .read-more-btn {
+      display: block;
+      margin: 1rem auto;
+      background-color: transparent;
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #000000;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      z-index: 1;
+    }
+    .read-more-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
+
+    /* ─── Modal overlay for expedition details ──────────────────────────────── */
+    .modal-overlay {
+      display: none; /* hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background-color: #ffffff;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 700px;
+      max-height: 80%;
+      overflow-y: auto;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+    .modal-content h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: #333333;
+    }
+    .modal-content p,
+    .modal-content li {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #444444;
+      margin-bottom: 1rem;
+    }
+    .modal-content ul,
+    .modal-content ol {
+      margin-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #888888;
+    }
+    .modal-close:hover {
+      color: #000000;
+    }
+    /* ────────────────────────────────────────────────────────────────────────── */
+
     /* Base page styling */
     html, body {
       margin: 0;
@@ -106,6 +183,11 @@
       font-size: 1.75rem;
     }
 
+    h2 {
+      font-size: 1.25rem;
+      margin: 1.5rem;
+    }
+
     p {
       line-height: 1.5;
       max-width: 800px;
@@ -121,8 +203,7 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       padding: 16px;
       width: 80vw;
-      /* max-width: 900px; */
-      margin-bottom: 2rem;
+      margin: 2rem;
       position: relative;
       z-index: 1;
     }
@@ -177,7 +258,7 @@
   <p>
     I decided to cycle across the Silk Road.
     You may ask why not just fly to Istanbul, why bother riding, why take risks, why spend so much money and time.
-    To me, it’s got something almost similar to why I dream to become an astronaut.
+    To me, it’s something almost like my dream to become an astronaut.
     It’s the unknown that makes it attractive.
     It’s the challenge that motivates me.
     It’s the vast nature I want to feel.
@@ -187,6 +268,78 @@
     And that’s a life I want to live.
   </p>
 
+  <!-- Read More button opens modal with expedition details -->
+  <button class="read-more-btn" id="openDetails">Read More</button>
+
+  <!-- Modal overlay with detailed content -->
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeDetails">&times;</button>
+
+      <h2>About</h2>
+      <p>
+        From August 2025 to February 2026, I will embark on a nearly 15,000 km cycling journey
+        along the ancient Silk Road, beginning in Beijing and concluding in Rome. This route follows
+        the historic trade artery through deserts, mountains, and countless towns where East meets West.
+        I will visit UWC alumni or friends along the way to join local volunteering projects whether that’s
+        a clean-up, a youth workshop, or any action that strengthens the community.
+      </p>
+
+      <h2>Purpose</h2>
+      <p>
+        This ride serves both as a personal challenge aligned with my dream of becoming an astronaut
+        and a fundraiser supporting <em>UWC ISAK Japan</em> and other organisations I deeply care for.
+        My target is to raise <strong>1,000,000 JPY</strong> (approx. $7,000 USD).
+      </p>
+
+      <h2>Timeline</h2>
+      <p>
+        <strong>Mid August 2025:</strong> Depart Beijing with full support kit.<br/>
+        <strong>Late September 2025:</strong> Arrive in Urumuqi after a long ride through the Gobi desert.<br/>
+        <strong>Late November 2025:</strong> Cross the Caspian sea from Turkmenistan to Azerbaijan<br/>
+        <strong>Mid December 2025:</strong> Enter Europe through Istanbul<br/>
+        <strong>Late February 2026:</strong> Reach Rome and complete the mission.
+      </p>
+
+      <h2>Donation</h2>
+      <ol>
+        <li>
+          <strong>UWC ISAK Japan:</strong>
+          My alma mater, an international school in Japan that provides scholarships to students from
+          all over the world, fostering leadership and promoting peace and sustainability through education.
+        </li>
+        <li>
+          <strong>A Stray Dog Shelter in Taiwan:</strong>
+          A shelter dedicated to rescuing stray dogs, providing them with medical care,
+          food, and a safe environment until they can be adopted.
+        </li>
+        <li>
+          <strong>Knowledge's Den:</strong>
+          A podcast that dives into specialized topics, life lessons, and stories with guests
+          from various fields aiming to provide listeners new insights.
+        </li>
+        <li>
+          <strong>atelier 4 paws:</strong>
+          An atelier run by my mother, Szu, who creates art inspired by her imagination and emotions.
+        </li>
+      </ol>
+
+      <h2>Sponsors</h2>
+      <p>
+        <strong>Bicycle Sponsor:</strong> <em>currently in search of one.</em><br/>
+        <strong>Accommodations:</strong> UWC alumni and friends along the route &lt;3 <br/>
+      </p>
+
+      <h2>Support</h2>
+      <p>
+        <strong>Donate:</strong> Click any “<a href="https://donorbox.org/silk-road-bike-touring" target="_blank">Donate</a>” button to support our cause.<br/>
+        <strong>Share:</strong> Share this website on social media to spread the journey.<br/>
+        <strong>Sponsor:</strong> Contact me at <a href="mailto:23lovedog@gmail.com">23lovedog@gmail.com</a>
+        for media partnerships, corporate sponsorships, or event appearances.
+      </p>
+    </div>
+  </div>
+
   <div class="card">
     <div class="map-container">
       <iframe
@@ -195,7 +348,7 @@
       ></iframe>
     </div>
     <div class="caption">
-      The route from Beijing to Rome for the bike touring trip.
+      The checkpoints from Beijing to Rome for the silk road expedition.
     </div>
   </div>
 
@@ -213,5 +366,27 @@
   <a href="disclosure.html" class="disclosure-link">
     Commercial Disclosure (Specified Commercial Transactions Act)
   </a>
+
+  <script>
+    // Modal functionality for expedition details
+    const openDetails = document.getElementById('openDetails');
+    const closeDetails = document.getElementById('closeDetails');
+    const detailsModal = document.getElementById('detailsModal');
+
+    openDetails.addEventListener('click', () => {
+      detailsModal.style.display = 'flex';
+    });
+
+    closeDetails.addEventListener('click', () => {
+      detailsModal.style.display = 'none';
+    });
+
+    // Close if clicking outside modal content
+    detailsModal.addEventListener('click', (e) => {
+      if (e.target === detailsModal) {
+        detailsModal.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
