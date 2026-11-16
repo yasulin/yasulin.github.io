@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.267.0/schema/sveltia-cms.json
+backend:
+  name: github
+  repo: yasulin/yasulin.github.io
+  branch: main
+  auth_methods: [token]
+  commit_messages:
+    create: 'Write diary entry {{slug}}'
+    update: 'Update diary entry {{slug}}'
+    delete: 'Remove diary entry {{slug}}'
+
+app_title: Reflective Pieces
+site_url: https://yasulin.github.io
+display_url: https://yasulin.github.io/diary/
+publish_mode: simple
+media_folder: diary/images/uploads
+public_folder: /diary/images/uploads
+
+collections:
+  - name: diary
+    label: Diary
+    label_singular: Entry
+    folder: diary/entries
+    create: true
+    delete: false
+    format: toml-frontmatter
+    extension: md
+    body_field:
+      key: body
+      inline: false
+    identifier_field: date
+    slug: '{{fields.date}}'
+    summary: '{{date}}'
+    sortable_fields:
+      - field: date
+        default_sort: desc
+    view_filters:
+      - label: Written entries
+        field: body
+        pattern: '^(?!empty \.\.\.$)[\s\S]+$'
+    preview_path: 'diary/#{{fields.date}}'
+    editor:
+      preview: false
+    fields:
+      - name: date
+        label: Date
+        widget: datetime
+        type: date
+        default: '{{now}}'
+      - name: body
+        label: Your entry
+        widget: text
+        required: true
+        hint: 'Write in any language. Saving publishes this entry to your public diary.'

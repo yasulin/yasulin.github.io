@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Writing setup · Reflective Pieces</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    main { max-width: 640px; margin: 48px auto; padding: 0 24px; line-height: 1.9; }
+    h1 { font-size: 40px; }
+    h2 { font-size: 26px; margin-top: 32px; }
+    li { margin-bottom: 12px; }
+    code { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <main>
+    <a href="../">← Back to the diary</a>
+    <h1>A place to write.</h1>
+    <p>The editor saves your entries directly to GitHub. Once connected, you can write from your computer or phone without opening a code editor.</p>
+    <h2>Connect your GitHub account</h2>
+    <ol>
+      <li>Open <a href="https://github.com/settings/personal-access-tokens/new">GitHub’s fine-grained token settings</a>. Name it “Personal diary” and choose an expiration date.</li>
+      <li>Set the resource owner to <strong>yasulin</strong>. Under “Only select repositories”, choose <strong>yasulin.github.io</strong>.</li>
+      <li>Under repository permissions, give <strong>Contents: Read and write</strong>. Metadata read access is included automatically. No other permissions are needed.</li>
+      <li>Create the token, then open <a href="./">the diary editor</a>, choose <strong>Sign In Using Access Token</strong>, and paste it there.</li>
+    </ol>
+    <p>The editor remembers the token in this browser. Use your own device and sign out on shared devices. When the token expires, create a replacement. Keep the token out of diary entries and source files.</p>
+    <h2>Write and publish</h2>
+    <p>Choose Diary, create an entry, pick a date, and write. Saving publishes it to the public GitHub repository; the website updates after its deployment finishes. To revise an existing day, open that entry from the list.</p>
+    <p>Entries are public when saved. This editor is for your public diary.</p>
+    <p><a href="./">Open the editor →</a></p>
+  </main>
+</body>
+</html>
